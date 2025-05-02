@@ -1,0 +1,53 @@
+<template>
+  <div>{{ msg1 }}</div>
+  <!-- 上一节 -->
+  <div v-bind:class="msg2" >测试class</div>
+  <div v-bind:id="testid">测试id</div>
+  <!-- 成功设置了div标签的class和id，它们可以同时设置 -->
+  <div :title="test_null">test_null</div>
+  <!-- v-bind可以用':'取代 -->
+  <div>
+    <!-- v-bind对布尔型的属性 -->
+    <button :disabled="isbtdisable">可以设置布尔型属性</button>
+  </div>
+
+
+  
+</template>
+
+<script>
+export default{
+  data(){
+    return {
+    msg1:"active1",
+    msg2:"active2",
+    testid:"114514",
+
+    test_null:null,
+    // test_null使用undefined也一样,浏览器不会有相应的属性，这里的例子title属性无了。
+
+    isbtdisable:0,
+    // 1:不能点击，0：可以点击,或者true：不可点击
+
+    // 还可以同时设置多个属性：（注意如果要设置非自定义的属性就要注意了）
+    cmb:{
+      id:"active2",
+      class:"active1"
+    }
+
+    }
+  }
+}
+</script>
+
+
+<style>
+/* 通过v-bind设置的id和class */
+.active2{
+    color: blueviolet;
+    font-size: 30px;
+}
+
+
+
+</style>
