@@ -1,0 +1,22 @@
+# Vue项目结构
+
+这里以什么组件都没有的Vue项目为例，介绍Vue项目的结构。
+
+## 1.项目结构
+
+.vscode: vscode的配置文件
+node_modules: Vue项目依赖的第三方库依赖包,是在执行npm install命令时自动安装的。（文件夹）
+public: 静态资源文件,包含index.html、favicon.ico等。（文件夹）
+src: 项目源码文件,包含main.js、App.vue、components、assets等。（文件夹）
+.gitignore: git版本管理忽略文件,指定不需要git管理的文件。
+package-lock.json: 项目依赖的第三方库依赖包的版本锁定文件,是在执行npm install命令时自动生成的。
+package.json: 项目的配置文件,包含项目的名称、版本、描述、作者、许可证、依赖包等信息。
+index.html: Vue项目的入口文件,包含Vue项目的渲染内容。
+main.js: Vue项目的入口文件,包含Vue项目的渲染内容。
+App.vue: Vue项目的入口文件,包含Vue项目的渲染内容。
+components: 项目组件文件夹,包含Vue项目的各个组件。（文件夹）
+
+
+### 注意：
+ .json文件不能写注释，否则会报错。
+

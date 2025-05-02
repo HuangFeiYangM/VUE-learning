@@ -1,0 +1,1983 @@
+    <!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="utf-8">
+    <link rel="canonical" href="https://blog.csdn.net/weixin_43669045/article/details/104269284"/>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="renderer" content="webkit"/>
+    <meta name="force-rendering" content="webkit"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="report" content='{"pid": "blog", "spm":"1001.2101"}'>
+    <meta name="referrer" content="always">
+    <meta http-equiv="Cache-Control" content="no-siteapp" /><link rel="alternate" media="handheld" href="#" />
+    <meta name="shenma-site-verification" content="5a59773ab8077d4a62bf469ab966a63b_1497598848">
+    <meta name="applicable-device" content="pc">
+    <link  href="https://g.csdnimg.cn/static/logo/favicon32.ico"  rel="shortcut icon" type="image/x-icon" />
+    <title>Powershell无法执行脚本问题解决方案-CSDN博客</title>
+    <script>
+      (function(){ 
+        var el = document.createElement("script"); 
+        el.src = "https://s3a.pstatp.com/toutiao/push.js?1abfa13dfe74d72d41d83c86d240de427e7cac50c51ead53b2e79d40c7952a23ed7716d05b4a0f683a653eab3e214672511de2457e74e99286eb2c33f4428830"; 
+        el.id = "ttzz"; 
+        var s = document.getElementsByTagName("script")[0]; 
+        s.parentNode.insertBefore(el, s);
+      })(window)
+    </script>
+        <meta name="keywords" content="Powershell无法执行脚本问题解决方案">
+    <meta name="description" content="文章浏览阅读2.5w次，点赞12次，收藏35次。最近在看python书，在搭建python骨架，创建虚拟环境的地方卡了一天，各种问题，太惨了哈哈哈哈 相信很多人都遇到了这个问题问题无法将“..venvs\lpthw\Scripts\activate”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后重试。所在位置 行:1 字符: 32venvs\lpthw\Scripts\a...">
+        <link rel="stylesheet" type="text/css" href="https://csdnimg.cn/release/blogv2/dist/pc/css/detail_enter-a805dca594.min.css">
+    <script type="application/ld+json">{"@context":"https://ziyuan.baidu.com/contexts/cambrian.jsonld","@id":"https://blog.csdn.net/weixin_43669045/article/details/104269284","appid":"1638831770136827","pubDate":"2020-02-11T21:05:42","title":"Powershell无法执行脚本问题解决方案-CSDN博客","upDate":"2020-02-11T21:05:42"}</script>
+        <link rel="stylesheet" type="text/css" href="https://csdnimg.cn/release/blogv2/dist/pc/themesSkin/skin-1024/skin-1024-ecd36efea2.min.css">
+    <script src="https://g.csdnimg.cn/lib/jquery/1.12.4/jquery.min.js" type="text/javascript"></script>
+    <script src="https://g.csdnimg.cn/lib/jquery-migrate/1.4.1/jquery-migrate.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        var isCorporate = false;
+        var username =  "weixin_43669045";
+        var skinImg = "white";
+
+        var blog_address = "https://blog.csdn.net/weixin_43669045";
+        var currentUserName = "Huang_Feiyang";
+        var isOwner = false;
+        var loginUrl = "http://passport.csdn.net/account/login?from=https://blog.csdn.net/weixin_43669045/article/details/104269284";
+        var blogUrl = "https://blog.csdn.net/";
+        var avatar = "https://profile-avatar.csdnimg.cn/e04898999a894fdea2f948daf771790c_weixin_43669045.jpg!1";
+        var articleTitle = "Powershell无法执行脚本问题解决方案";
+        var articleDesc = "文章浏览阅读2.5w次，点赞12次，收藏35次。最近在看python书，在搭建python骨架，创建虚拟环境的地方卡了一天，各种问题，太惨了哈哈哈哈 相信很多人都遇到了这个问题问题无法将“..venvs\\lpthw\\Scripts\\activate”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后重试。所在位置 行:1 字符: 32venvs\\lpthw\\Scripts\\a...";
+        var articleTitles = "Powershell无法执行脚本问题解决方案-CSDN博客";
+        var nickName = "Alexhirchi";
+        var articleDetailUrl = "https://blog.csdn.net/weixin_43669045/article/details/104269284";
+        var vipUrlV = "https://mall.csdn.net/vip?vipSource=learningVip";
+        if(window.location.host.split('.').length == 3) {
+            blog_address = blogUrl + username;
+        }
+        var skinStatus = "White";
+        var blogStaticHost = "https://csdnimg.cn/release/blogv2/"
+          var payColumn = false
+    </script>
+        <meta name="toolbar" content='{"type":"0","fixModel":"1"}'>
+    <script src="https://g.csdnimg.cn/??fixed-sidebar/1.1.7/fixed-sidebar.js" type="text/javascript"></script>
+      <script src="https://cdn-static-devbit.csdn.net/ai100/chat/chat-search.js?v=2" type="text/javascript"></script>
+    <script src='//g.csdnimg.cn/common/csdn-report/report.js' type='text/javascript'></script>
+    <link rel="stylesheet" type="text/css" href="https://csdnimg.cn/public/sandalstrap/1.4/css/sandalstrap.min.css">
+    <style>
+        .MathJax, .MathJax_Message, .MathJax_Preview{
+            display: none
+        }
+    </style>
+    <script src="https://dup.baidustatic.com/js/ds.js"></script>
+      <script type="text/javascript">
+        (function(c,l,a,r,i,t,y){
+            c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+            t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;
+            y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+        })(window, document, "clarity", "script", "lgtpix6r85");
+      </script>
+    <script src="/cdn_cgi_bs_bot/static/crypto.min.js"></script>
+    <script src="/cdn_cgi_bs_bot/static/bot-score-v1.js"></script>
+    <script src="/cdn_cgi_bs_captcha/static/js/waf_captcha_embedded_bs.js"></script>
+</head>
+  <body class="nodata  " style="">
+    <div id="toolbarBox" style="min-height: 48px;"></div>
+        <script>
+            var toolbarSearchExt = '{\"id\":104269284,\"landingWord\":[],\"queryWord\":\"\",\"tag\":[],\"title\":\"Powershell无法执行脚本问题解决方案\"}';
+        </script>
+    <script src="https://g.csdnimg.cn/common/csdn-toolbar/csdn-toolbar.js" type="text/javascript"></script>
+    <script>
+    (function(){
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        }
+        else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+    </script>
+
+    <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/pc/css/blog_code-01256533b5.min.css">
+    <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/chart-3456820cac.css" />
+    <link rel="stylesheet" href="https://g.csdnimg.cn/lib/swiper/6.0.4/css/swiper.css" />
+    <script src="https://g.csdnimg.cn/lib/swiper/6.0.4/js/swiper.js" async></script>
+    <script>
+      var articleId = 104269284;
+        var privateEduData = ["python"];//高亮数组
+        var privateData = ["powershell","dl"];//高亮数组
+      var crytojs = "https://csdnimg.cn/release/blogv2/dist/components/js/crytojs-ca5b8bf6ae.min.js";
+      var commentscount = 3;
+      var commentAuth = 2;
+      var curentUrl = "https://blog.csdn.net/weixin_43669045/article/details/104269284";
+      var myUrl = "https://my.csdn.net/";
+      var isGitCodeBlog = false;
+      var isOpenSourceBlog = false;
+      var isVipArticle = false;
+        var highlight = ["fullyqualifiederrorid","objectnotfound","categoryinfo","powershell","comma","解决方案","脚本","问题","执行","无法","(",":","+"];//高亮数组
+        var isRecommendModule = true;
+          var isBaiduPre = true;
+          var baiduCount = 2;
+          var setBaiduJsCount = 10;
+        var viewCountFormat = 25216;
+      var share_card_url = "https://app-blog.csdn.net/share?article_id=104269284&username=weixin_43669045"
+      var mallVipUrl = "https://mall.csdn.net/vip?vipSource=article"
+      var vipArticleAbStyle = "t_2"
+      var vipArticleCpStyle = "t_2"
+      var codeAbStyle = "control"
+      var codeAiAbStyle = "control"
+      var articleType = 1;
+      var baiduKey = "";
+      var copyPopSwitch = true;
+      var needInsertBaidu = true;
+      var recommendRegularDomainArr = ["blog.csdn.net/.+/article/details/","download.csdn.net/download/","edu.csdn.net/course/detail/","ask.csdn.net/questions/","bbs.csdn.net/topics/","www.csdn.net/gather_.+/"]
+      var codeStyle = "atom-one-light";
+      var baiduSearchType = "";
+      var sharData = "{\"hot\":[{\"id\":1,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/a5f4260710904e538002a6ab337939b3.png\"},{\"id\":2,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/188b37199a2c4b74b1d9ffc39e0d52de.png\"},{\"id\":3,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/14ded358b631444581edd98a256bc5af.png\"},{\"id\":4,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/1470f23a770444d986ad551b9c33c5be.png\"},{\"id\":5,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/c329f5181dc74f6c9bd28c982bb9f91d.png\"},{\"id\":6,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/ccd8a3305e81460f9c505c95b432a65f.png\"},{\"id\":7,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/bc89d8283389440d97fc4d30e30f45e1.png\"},{\"id\":8,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/452d485b4a654f5592390550d2445edf.png\"},{\"id\":9,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/f8b9939db2ed474a8f43a643015fc8b7.png\"},{\"id\":10,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/6de8864187ab4ed3b1db0856369c36ff.png\"},{\"id\":11,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/673cc3470ff74072acba958dc0c46e2d.png\"},{\"id\":12,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/930c119760ac4491804db80f9c6d4e3f.png\"},{\"id\":13,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/15e6befb05a24233bc2b65e96aa8d972.png\"},{\"id\":14,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/2075fd6822184b95a41e214de4daec13.png\"},{\"id\":15,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/859b1552db244eb6891a809263a5c657.png\"},{\"id\":16,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/0be2f920f1f74290a98921974a9613fd.png\"},{\"id\":17,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/2e97e00b43f14afab494ea55ef3f4a6e.png\"},{\"id\":18,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/ff4ab252f46e444686f5135d6ebbfec0.png\"},{\"id\":19,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/ae029bbe99564e79911657912d36524f.png\"},{\"id\":20,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/b3ece39963de440388728e9e7b9bf427.png\"},{\"id\":21,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/6f14651a99ba486e926d63b6fa692997.png\"},{\"id\":22,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/83ceddf050084875a341e32dcceca721.png\"},{\"id\":23,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/b90368b8fd5d4c6c8c79a707d877cf7c.png\"},{\"id\":24,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/aeffae14ecf14e079b2616528c9a393b.png\"},{\"id\":25,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/c5a06b5a13d44d16bed868fc3384897a.png\"},{\"id\":26,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/08b697658b844b318cea3b119e9541ef.png\"},{\"id\":27,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/68ccb0b8d09346ac961d2b5c1a8c77bf.png\"},{\"id\":28,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/a2227a247e37418cbe0ea972ba6a859b.png\"},{\"id\":29,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/3a42825fede748f9993e5bb844ad350d.png\"},{\"id\":30,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/8882abc1dd484224b636966ea38555c3.png\"},{\"id\":31,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/4f6a5f636a3e444d83cf8cc06d87a159.png\"},{\"id\":32,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/1953ef79c56b4407b78d7181bdff11c3.png\"},{\"id\":33,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/c04a2a4f772948ed85b5b0380ed36287.png\"},{\"id\":34,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/5b4fecd05091405ea04d8c0f53e9f2c7.png\"},{\"id\":35,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/b89f576d700344e280d6ceb2a66c2420.png\"},{\"id\":36,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/1c65780e11804bbd9971ebadb3d78bcf.png\"},{\"id\":37,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/d590db2055f345db9706eb68a7ec151a.png\"},{\"id\":38,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/fe602f80700b4f6fb3c4a9e4c135510e.png\"},{\"id\":39,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/39ff2fcd31e04feba301a071976a0ba7.png\"},{\"id\":40,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/f9b61b3d113f436b828631837f89fb39.png\"},{\"id\":41,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/df1aca5f610c4ad48cd16da88c9c8499.png\"},{\"id\":42,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/d7acf73a1e6b41399a77a85040e10961.png\"},{\"id\":43,\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/b7f1b63542524b97962ff649ab4e7e23.png\"}],\"vip\":[{\"id\":1,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101150.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101154.png\"},{\"id\":2,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101204.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101208.png\"},{\"id\":3,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101211.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101215.png\"},{\"id\":4,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101218.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101220.png\"},{\"id\":5,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101223.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220920101226.png\"},{\"id\":6,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100635.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100639.png\"},{\"id\":7,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100642.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100644.png\"},{\"id\":8,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100647.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100649.png\"},{\"id\":9,\"vipUrl\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100652.png\",\"url\":\"https:\\/\\/img-home.csdnimg.cn\\/images\\/20220922100655.png\"},{\"id\":10,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/55de67481fde4b04b97ad78f11fe369a.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/bb2418fb537e4d78b10d8765ccd810c5.png\"},{\"id\":11,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/579c713394584d128104ef1044023954.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/f420d9fbcf5548079d31b5e809b6d6cd.png\"},{\"id\":12,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/75b7f3155ba642f5a4cc16b7baf44122.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/a9030f5877be401f8b340b80b0d91e64.png\"},{\"id\":13,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/0903d33cafa54934be3780aa54ae958d.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/2cd8c8929f5a42fca5da2a0aeb456203.png\"},{\"id\":14,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/949fd7c22884439fbfc3c0e9c3b8dee7.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/dafbea9bd9eb4f3b962b48dc41657f89.png\"},{\"id\":15,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/4119cfddd71d4e6a8a27a18dbb74d90e.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/c56310c8b6384d9e85388e4e342ce508.png\"},{\"id\":16,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/121575274da142bcbbbbc2e8243dd411.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/5013993de06542f881018bb9abe2edf7.png\"},{\"id\":17,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/4d97aa6dd4fe4f09a6bef5bdf8a6abcd.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/76f23877b6ad4066ad45ce8e31b4b977.png\"},{\"id\":18,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/fdb619daf21b4c829de63b9ebc78859d.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/a1abe5d27a5441f599adfe662f510243.png\"},{\"id\":19,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/676b7707bb11410f8f56bc0ed2b2345c.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/7ac5b467fbf24e1d8c2de3f3332c4f54.png\"},{\"id\":20,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/0becb8cc227e4723b765bdd69a20fd4a.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/fdec85b26091486b9a89d0b8d45c3749.png\"},{\"id\":21,\"vipUrl\":\"https:\\/\\/img-blog.csdnimg.cn\\/1a6c06235ad44941b38c54cbc25a370c.png\",\"url\":\"https:\\/\\/img-blog.csdnimg.cn\\/410a06cda2d44b0c84578f88275caf70.png\"}],\"map\":{\"hot\":\"热门\",\"vip\":\"VIP\"}}";
+      
+      var canRead = true;
+      var blogMoveHomeArticle = false;
+      var showSearchText = "";
+      var sideToolbarResult = "exp";
+      var sideToolbarDeepseek = "exp1";
+      var articleSource = 1;
+      var articleReport = '{"pid": "blog", "spm":"1001.2101"}';
+        var baiduSearchChannel = 'pc_relevant'
+        var baiduSearchIdentification = '.235^v43^control'
+        var distRequestId = '1746165859802_91526'
+        var initRewardObject = {
+          giver: currentUserName,
+          anchor: username,
+          articleId: articleId,
+          sign: ''
+        }
+        var isLikeStatus = false;
+        var isUnLikeStatus = false;
+        var studyLearnWord = "";
+        var unUseCount = 0;
+        var codeMaxSize = 0;
+        var overCost = true;
+        var isCurrentUserVip = false;
+        var contentViewsHeight = 0;
+        var contentViewsCount = 0;
+        var contentViewsCountLimit = 5;
+        var isShowConcision = true
+        var lastTime = 0
+        var postTime = "2020-02-11 21:05:42"
+      var isCookieConcision = false
+      var isHasDirectoryModel = false
+      var isShowSideModel = false
+      var isShowDirectoryModel = true
+      function getCookieConcision(sName){
+        var allCookie = document.cookie.split("; ");
+        for (var i=0; i < allCookie.length; i++){
+          var aCrumb = allCookie[i].split("=");
+          if (sName == aCrumb[0])
+            return aCrumb[1];
+        }
+        return null;
+      }
+      if (getCookieConcision('blog_details_concision') && getCookieConcision('blog_details_concision') == 0){
+        isCookieConcision = true
+        isShowSideModel = true
+        isShowDirectoryModel = false
+      }
+    </script>
+        <div class="main_father clearfix d-flex justify-content-center mainfather-concision" style="height:100%;">
+          <div class="container clearfix container-concision" id="mainBox">
+          <script>
+          if (!isCookieConcision) {
+            $('.main_father').removeClass('mainfather-concision')
+            $('.main_father .container').removeClass('container-concision')
+          } else {
+            $('#mainBox').css('margin-right', '0')
+          }
+          </script>
+          <main>
+<script type="text/javascript">
+    var resourceId =  "";
+    function getQueryString(name) {   
+      var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象  
+      var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+      if( r != null ) return decodeURIComponent( r[2] ); return '';   
+    }
+    function stripscript(s){ 
+      var pattern = new RegExp("[`~!@#$^&*()=|{}':;',\\[\\].<>/?~！@#￥……&*（）——|{}【】‘；：”“'。，、？%]") 
+      var rs = ""; 
+      for (var i = 0; i < s.length; i++) { 
+        rs = rs+s.substr(i, 1).replace(pattern, ''); 
+      } 
+      return rs;
+    }
+    var blogHotWords = stripscript(getQueryString('utm_term')).length > 1 ? stripscript(getQueryString('utm_term')) : ''
+</script>
+<div class="blog-content-box">
+    <div class="article-header-box">
+        <div class="article-header">
+            <div class="article-title-box">
+                <h1 class="title-article" id="articleContentId">Powershell无法执行脚本问题解决方案</h1>
+            </div>
+            <div class="article-info-box">
+                    <div class="up-time">最新推荐文章于&nbsp;2025-03-06 08:53:39&nbsp;发布</div>
+                <div class="article-bar-top">
+                    <img class="article-type-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/original.png" alt="">
+                    <div class="bar-content">
+                      <a class="follow-nickName " href="https://blog.csdn.net/weixin_43669045" target="_blank" rel="noopener" title="Alexhirchi">Alexhirchi</a>
+                    <img class="article-time-img article-heard-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newCurrentTime2.png" alt="">
+                          <span class="time blog-postTime" data-time="2020-02-11 21:05:42">最新推荐文章于&nbsp;2025-03-06 08:53:39&nbsp;发布</span>
+                   <div class="read-count-box">
+                      <img class="article-read-img article-heard-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/articleReadEyes2.png" alt="">
+                      <span class="read-count">阅读量2.5w</span>
+                      <a id="blog_detail_zk_collection" class="un-collection" data-report-click='{"mod":"popu_823","spm":"1001.2101.3001.4232","ab":"new"}'>
+                          <img class="article-collect-img article-heard-img un-collect-status isdefault" style="display:inline-block" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCollect2.png" alt="">
+                          <img class="article-collect-img article-heard-img collect-status isactive" style="display:none" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarCollectionActive2.png" alt="">
+                          <span class="name">收藏</span>
+                          <span class="get-collection">
+                              35
+                          </span>
+                      </a>
+                      <div class="read-count-box is-like" data-type="top">
+                        <img class="article-read-img article-heard-img" style="display:none" id="is-like-imgactive-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newHeart2023Active.png" alt="">
+                        <img class="article-read-img article-heard-img" style="display:block" id="is-like-img-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newHeart2023Black.png" alt="">
+                        <span class="read-count" id="blog-digg-num">点赞数
+                            12
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="blog-tags-box">
+                    <div class="tags-box artic-tag-box">
+                    </div>
+                </div>
+                <div class="slide-content-box">
+                    <div class="article-copyright">
+                        <div class="creativecommons">
+                            版权声明：本文为博主原创文章，遵循<a href="http://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener"> CC 4.0 BY-SA </a>版权协议，转载请附上原文出处链接和本声明。
+                        </div>
+                        <div class="article-source-link">
+                            本文链接：<a href="https://blog.csdn.net/weixin_43669045/article/details/104269284" target="_blank">https://blog.csdn.net/weixin_43669045/article/details/104269284</a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="operating">
+                    <a class="href-article-edit slide-toggle">版权</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+    <div id="blogHuaweiyunAdvert"></div>
+    <article class="baidu_pl">
+        <div id="article_content" class="article_content clearfix">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/kdoc_html_views-1a98987dfd.css">
+        <link rel="stylesheet" href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/ck_htmledit_views-704d5b9767.css">
+                <div id="content_views" class="markdown_views prism-atom-one-light">
+                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <path stroke-linecap="round" d="M5,0 0,2.5 5,5z" id="raphael-marker-block" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path>
+                    </svg>
+                    <blockquote> 
+ <p>最近在看python书&#xff0c;在搭建python骨架&#xff0c;创建虚拟环境的地方卡了一天&#xff0c;各种问题&#xff0c;太惨了哈哈哈哈 相信很多人都遇到了这个问题</p> 
+</blockquote> 
+<h2><a id="_2"></a>问题</h2> 
+<p>无法将“..venvs\lpthw\Scripts\activate”项识别为 cmdlet、函数、脚本文件或可运行程序的名称。请检查名称的拼写&#xff0c;如果包括路径&#xff0c;请确保路径正确&#xff0c;然后重试。所在位置 行:1 字符: 32</p> 
+<pre><code>venvs\lpthw\Scripts\activate &lt;&lt;&lt;&lt;
+    &#43; CategoryInfo          : ObjectNotFound: (.\.venvs\lpthw\Scripts\activate:String) [], CommandNotFoundException
+    &#43; FullyQualifiedErrorId : CommandNotFoundException
+</code></pre> 
+<p>如图:<br /> <img src="https://i-blog.csdnimg.cn/blog_migrate/fca940c480302c3cf8819071ae9379bf.png" alt="在这里插入图片描述" /></p> 
+<h2><a id="_11"></a>问题原因</h2> 
+<p>电脑上启动 Window Powershell 时&#xff0c;默认情况下&#xff0c;其执行策略可能是Restricted。<br /> <strong>Restricted策略是不允许任何脚本执行的</strong>。</p> 
+<p>如要查询当前执行策略 其命令</p> 
+<pre><code class="prism language-cpp">get<span class="token operator">-</span>executionpolicy     <span class="token comment">//查看当前执行策略</span>
+</code></pre> 
+<h2><a id="_23"></a>解决问题方案</h2> 
+<p>更改执行策略 <code>remotesigned</code><br /> 在Powershell中键入&#xff08;最好用管理员权限执行&#xff09;</p> 
+<pre><code class="prism language-cpp">set<span class="token operator">-</span>executionpolicy remotesigned    <span class="token comment">//修改执行策略为remotesigned  </span>
+</code></pre> 
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/7876c9923c4b166cf81343c2a0f302cc.png" alt="在这里插入图片描述" /><br /> 直接默认yes就可修改成功</p> 
+<hr /> 
+<p><strong>Powershell执行策略</strong></p> 
+<pre><code class="prism language-go">Restricted<span class="token punctuation">:</span> 脚本不能运行<span class="token punctuation">(</span>默认设置<span class="token punctuation">)</span>
+RemoteSigned<span class="token punctuation">:</span> 在本地创建的脚本可以运行&#xff0c;网上下载的脚本无法运行<span class="token punctuation">(</span>拥有数字证书签名例外<span class="token punctuation">)</span>
+AllSigned<span class="token punctuation">:</span> 仅当脚本由受信任的发布者签名时才能运行
+Unrestricted<span class="token punctuation">:</span> 允许所有脚本运行
+
+Set<span class="token operator">-</span>ExecutionPolicy <span class="token operator">&lt;</span>Policy name<span class="token operator">&gt;</span>  设置执行策略
+</code></pre> 
+<h2><a id="_47"></a>补充</h2> 
+<p>在键入修改执行策略时&#xff0c;可能会产生以下报错<br /> <strong>请用管理员权限打开</strong></p> 
+<pre><code>Set-ExecutionPolicy : 对注册表项“HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\PowerShell\1\ShellIds\Microsoft.PowerShell”的
+访问被拒绝。
+所在位置 行:1 字符: 20
+&#43; set-executionpolicy &lt;&lt;&lt;&lt;  remotesigned
+    &#43; CategoryInfo          : NotSpecified: (:) [Set-ExecutionPolicy], UnauthorizedAccessException
+    &#43; FullyQualifiedErrorId : System.UnauthorizedAccessException,Microsoft.PowerShell.Commands.SetExecutionPolicyComma
+   nd
+
+</code></pre> 
+<p><img src="https://i-blog.csdnimg.cn/blog_migrate/80fb5286243aacf23c5f7eb4d734c0d5.png" alt="在这里插入图片描述" /></p>
+                </div>
+                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/editerView/markdown_views-a5d25dd831.css" rel="stylesheet">
+                <link href="https://csdnimg.cn/release/blogv2/dist/mdeditor/css/style-e504d6a974.css" rel="stylesheet">
+        </div>
+    </article>
+  <script>
+    $(function() {
+      setTimeout(function () {
+        var mathcodeList = document.querySelectorAll('.htmledit_views img.mathcode');
+        if (mathcodeList.length > 0) {
+          for (let i = 0; i < mathcodeList.length; i++) {
+            if (mathcodeList[i].complete) {
+              if (mathcodeList[i].naturalWidth === 0 || mathcodeList[i].naturalHeight === 0) {
+                var alt = mathcodeList[i].alt;
+                alt = '\\(' + alt + '\\)';
+                var curSpan = $('<span class="img-codecogs"></span>');
+                curSpan.text(alt);
+                $(mathcodeList[i]).before(curSpan);
+                $(mathcodeList[i]).remove();
+              }
+            } else {
+              mathcodeList[i].onerror = function() {
+                var alt = mathcodeList[i].alt;
+                alt = '\\(' + alt + '\\)';
+                var curSpan = $('<span class="img-codecogs"></span>');
+                curSpan.text(alt);
+                $(mathcodeList[i]).before(curSpan);
+                $(mathcodeList[i]).remove();
+              };
+            }
+          }
+          MathJax.Hub.Queue(["Typeset",MathJax.Hub]);
+        }
+      }, 500)
+    });
+  </script>
+</div>
+<div class="directory-boxshadow-dialog" style="display:none;">
+  <div class="directory-boxshadow-dialog-box">
+  </div>
+   <div class="vip-limited-time-offer-box-new" id="vip-limited-time-offer-box-new">
+      <img class="limited-img limited-img-new" src="https://csdnimg.cn/release/blogv2/dist/pc/img/vip-limited-close-newWhite.png">
+      <div class="vip-limited-time-top">
+        确定要放弃本次机会？
+      </div>
+      <span class="vip-limited-time-text">福利倒计时</span>
+      <div class="limited-time-box-new">
+        <span class="time-hour"></span>
+        <i>:</i>
+        <span class="time-minite"></span>
+        <i>:</i>
+        <span class="time-second"></span>
+      </div>
+      <div class="limited-time-vip-box">
+        <p>
+          <img class="coupon-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/vip-limited-close-roup.png">
+          <span class="def">立减 ¥</span>
+          <span class="active limited-num"></span>
+        </p>
+        <span class="">普通VIP年卡可用</span>
+      </div>
+      <a class="limited-time-btn-new" href="https://mall.csdn.net/vip" data-report-click='{"spm":"1001.2101.3001.9621"}' data-report-query='spm=1001.2101.3001.9621'>立即使用</a>
+  </div>
+</div>
+    <div class="more-toolbox-new more-toolbar" id="toolBarBox">
+      <div class="left-toolbox">
+        <div class="toolbox-left">
+            <div class="profile-box">
+              <a class="profile-href" target="_blank" href="https://blog.csdn.net/weixin_43669045"><img class="profile-img" src="https://profile-avatar.csdnimg.cn/e04898999a894fdea2f948daf771790c_weixin_43669045.jpg!1">
+                <span class="profile-name">
+                  Alexhirchi
+                </span>
+              </a>
+            </div>
+            <div class="profile-attend">
+                <a class="tool-attend tool-bt-button tool-bt-attend" href="javascript:;" data-report-view='{"mod":"1592215036_002","spm":"1001.2101.3001.4232","extend1":"关注"}'>关注</a>
+              <a class="tool-item-follow active-animation" style="display:none;">关注</a>
+            </div>
+        </div>
+        <div class="toolbox-middle">
+          <ul class="toolbox-list">
+            <li class="tool-item tool-item-size tool-active is-like" id="is-like" data-type="bottom">
+              <a class="tool-item-href">
+                <img style="display:none;" id="is-like-imgactive-animation-like" class="animation-dom active-animation" src="https://csdnimg.cn/release/blogv2/dist/pc/img/tobarThumbUpactive.png" alt="">
+                <img class="isactive" style="display:none" id="is-like-imgactive" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/like-active.png" alt="">
+                <img class="isdefault" style="display:block" id="is-like-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/like.png" alt="">
+                <span id="spanCount" class="count ">
+                    12
+                </span>
+              </a>
+              <div class="tool-hover-tip"><span class="text space">点赞</span></div>
+            </li>
+            <li class="tool-item tool-item-size tool-active is-unlike" id="is-unlike">
+              <a class="tool-item-href">
+                <img class="isactive" style="margin-right:0px;display:none" id="is-unlike-imgactive" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/unlike-active.png" alt="">
+                <img class="isdefault" style="margin-right:0px;display:block" id="is-unlike-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/unlike.png" alt="">
+                <span id="unlikeCount" class="count "></span>
+              </a>
+              <div class="tool-hover-tip"><span class="text space">踩</span></div>
+            </li>
+            <li class="tool-item tool-item-size tool-active is-collection ">
+              <a class="tool-item-href" href="javascript:;" data-report-click='{"mod":"popu_824","spm":"1001.2101.3001.4130","ab":"new"}'>
+                <img style="display:none" id="is-collection-img-collection" class="animation-dom active-animation" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/collect-active.png" alt="">
+                <img class="isdefault" id="is-collection-img" style="display:block" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/collect.png" alt="">
+                <img class="isactive" id="is-collection-imgactive" style="display:none" src="https://csdnimg.cn/release/blogv2/dist/pc/img/newCollectActive.png" alt="">
+                <span class="count get-collection " data-num="35" id="get-collection">
+                    35
+                </span>
+              </a>
+              <div class="tool-hover-tip collect">
+                <div class="collect-operate-box">
+                  <span class="collect-text" id="is-collection">
+                    收藏
+                  </span>
+                </div>
+              </div>
+              <div class="tool-active-list">
+                <div class="text">
+                  觉得还不错?
+                  <span class="collect-text" id="tool-active-list-collection">
+                    一键收藏
+                  </span>
+                 <img id="tool-active-list-close" src="https://csdnimg.cn/release/blogv2/dist/pc/img/collectionCloseWhite.png" alt="">
+                </div>
+              </div>
+            </li>
+            <li class="tool-item tool-item-size tool-active tool-item-comment">
+              <div class="guide-rr-first">
+                <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/guideRedReward01.png" alt="">
+                <button class="btn-guide-known">知道了</button>
+              </div>
+                <a class="tool-item-href go-side-comment" data-report-click='{"spm":"1001.2101.3001.7009"}'>
+                <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/comment.png" alt="">
+                <span class="count">
+                    3
+                </span>
+              </a>
+              <div class="tool-hover-tip"><span class="text space">评论</span></div>
+            </li>
+            <li class="tool-item tool-item-size tool-active tool-QRcode" data-type="article" id="tool-share">
+              <a class="tool-item-href" href="javascript:;" data-report-view='{"spm":"3001.4129","extra":{"type":"blogdetail"}}'>
+                <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/share.png" alt="">
+                <span class="count">分享</span>
+              </a>
+                <div class="QRcode" id="tool-QRcode">
+                <div class="share-bg-box">
+                  <div class="share-content">
+                    <a id="copyPosterUrl" data-type="link" class="btn-share">复制链接</a>
+                  </div>
+                  <div class="share-content">
+                    <a class="btn-share" data-type="qq">分享到 QQ</a>
+                  </div>
+                  <div class="share-content">
+                    <a class="btn-share" data-type="weibo">分享到新浪微博</a>
+                  </div>
+                  <div class="share-code">
+                    <div class="share-code-box" id='shareCode'></div>
+                    <div class="share-code-text">
+                      <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/share/icon-wechat.png" alt="">扫一扫
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          <li class="tool-item tool-item-size tool-active is-more" id="is-more">
+            <a class="tool-item-href">
+              <img class="isdefault" style="margin-right:0px;display:block" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/more.png" alt="">
+              <span class="count"></span>
+            </a>
+            <div class="more-opt-box">
+              <div class="mini-box">
+                <a class="tool-item-href" id="toolReportBtnHide">
+                  <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/report.png" alt="">
+                  <span class="count">举报</span>
+                </a>
+              </div>
+              <div class="normal-box">
+                <a class="tool-item-href" id="toolReportBtnHideNormal">
+                  <img class="isdefault" src="https://csdnimg.cn/release/blogv2/dist/pc/img/toolbar/report.png" alt="">
+                  <span class="count">举报</span>
+                </a>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="toolbox-right">
+</div>
+</div>
+</div>
+<script type=text/javascript crossorigin src="https://csdnimg.cn/release/phoenix/production/qrcode-7c90a92189.min.js"></script>
+<script type="text/javascript" crossorigin src="https://g.csdnimg.cn/common/csdn-login-box/csdn-login-box.js"></script>
+<script type="text/javascript" crossorigin src="https://g.csdnimg.cn/collection-box/2.1.2/collection-box.js"></script>                <div class="first-recommend-box recommend-box ">
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/lvoelife/article/details/129143200"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6661.1","mod":"popu_871","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromBaidu~PaidSort-1-129143200-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"1","strategy":"2~default~BlogCommendFromBaidu~PaidSort","dest":"https://blog.csdn.net/lvoelife/article/details/129143200"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/lvoelife/article/details/129143200" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6661.1","mod":"popu_871","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromBaidu~PaidSort-1-129143200-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"1","strategy":"2~default~BlogCommendFromBaidu~PaidSort","dest":"https://blog.csdn.net/lvoelife/article/details/129143200"}'  data-report-query='spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7EPaidSort-1-129143200-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7EPaidSort-1-129143200-blog-104269284.235%5Ev43%5Econtrol'>
+					<div class="left ellipsis-online ellipsis-online-1">全网详细解决<em>执行</em>Set-ExecutionPolicy RemoteSigned报出的的错误：对注册表项&ldquo;HKEY_LOCAL_MACHINESOFTWAREMicrosoft.&rdquo;的访问被拒拒绝。</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/lvoelife" target="_blank"><span class="blog-title">念兮为美</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">02-24</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					7638
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/lvoelife/article/details/129143200" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6661.1","mod":"popu_871","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant_t0.none-task-blog-2~default~BlogCommendFromBaidu~PaidSort-1-129143200-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"1","strategy":"2~default~BlogCommendFromBaidu~PaidSort","dest":"https://blog.csdn.net/lvoelife/article/details/129143200"}'  data-report-query='spm=1001.2101.3001.6661.1&utm_medium=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7EPaidSort-1-129143200-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7EPaidSort-1-129143200-blog-104269284.235%5Ev43%5Econtrol'>
+				<div class="desc ellipsis-online ellipsis-online-1">全网详细解决<em>执行</em>Set-ExecutionPolicy RemoteSigned报出的的错误：<em>执行</em>策略可帮助你防止<em>执行</em>不信任的<em>脚本</em>。更改<em>执行</em>策略可能会产生安全风险。Set-ExecutionPolicy <em>:</em> 对注册表项&ldquo;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\<em>PowerShell</em>\1\ShellIds\Microsoft.<em>PowerShell</em>&rdquo;的访问被拒绝。 要更改默认<em>(</em>LocalMachine)作用域的<em>执行</em>策略，请使用&ldquo;以管理员身份运行&rdquo;选项启动 Windows Pow</div>
+			</a>
+		</div>
+	</div>
+</div>
+                </div>
+            <script src="https://csdnimg.cn/release/blogv2/dist/components/js/pc_wap_commontools-551c0511ec.min.js" type="text/javascript" async></script>
+              <div class="second-recommend-box recommend-box ">
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/weixin_44171004/article/details/111941627"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.1","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~OPENSEARCH~PaidSort-1-111941627-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"1","strategy":"2~default~OPENSEARCH~PaidSort","dest":"https://blog.csdn.net/weixin_44171004/article/details/111941627"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/weixin_44171004/article/details/111941627" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.1","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~OPENSEARCH~PaidSort-1-111941627-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"1","strategy":"2~default~OPENSEARCH~PaidSort","dest":"https://blog.csdn.net/weixin_44171004/article/details/111941627"}'  data-report-query='spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EOPENSEARCH%7EPaidSort-1-111941627-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EOPENSEARCH%7EPaidSort-1-111941627-blog-104269284.235%5Ev43%5Econtrol'>
+					<div class="left ellipsis-online ellipsis-online-1">Shell终端使用系列（一）&mdash;&mdash;<em>PowerShell</em><em>无法</em>运行<em>脚本</em>文件</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/weixin_44171004" target="_blank"><span class="blog-title">lime2019的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">12-30</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					880
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/weixin_44171004/article/details/111941627" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.1","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~OPENSEARCH~PaidSort-1-111941627-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"1","strategy":"2~default~OPENSEARCH~PaidSort","dest":"https://blog.csdn.net/weixin_44171004/article/details/111941627"}'  data-report-query='spm=1001.2101.3001.6650.1&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EOPENSEARCH%7EPaidSort-1-111941627-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EOPENSEARCH%7EPaidSort-1-111941627-blog-104269284.235%5Ev43%5Econtrol'>
+				<div class="desc ellipsis-online ellipsis-online-1"><em>无法</em>加载文件 D<em>:</em>\ProgramData\Node\node_global\nrm.ps1，因为在此系统上禁止运行<em>脚本</em>。</div>
+			</a>
+		</div>
+	</div>
+</div>
+              </div>
+<a id="commentBox" name="commentBox"></a>
+  <div id="pcCommentBox" class="comment-box comment-box-new2 login-comment-box-new" style="display:none">
+      <div class="has-comment" style="display:block">
+        <div class="one-line-box">
+          <div class="has-comment-tit go-side-comment">
+            <span class="count">3</span>&nbsp;条评论
+          </div>
+          <div class="has-comment-con comment-operate-item"></div>
+          <a class="has-comment-bt-right go-side-comment focus">写评论</a>
+        </div>
+      </div>
+  </div>
+              <div class="recommend-box insert-baidu-box recommend-box-style ">
+                <div class="recommend-item-box no-index" style="display:none"></div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/2303_78851087/article/details/146058275"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.2","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~YuanLiJiHua~Ctr-2-146058275-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"2","strategy":"2~default~YuanLiJiHua~Ctr","dest":"https://blog.csdn.net/2303_78851087/article/details/146058275"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/2303_78851087/article/details/146058275" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.2","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~YuanLiJiHua~Ctr-2-146058275-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"2","strategy":"2~default~YuanLiJiHua~Ctr","dest":"https://blog.csdn.net/2303_78851087/article/details/146058275"}'  data-report-query='spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7ECtr-2-146058275-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7ECtr-2-146058275-blog-104269284.235%5Ev43%5Econtrol'>
+					<div class="left ellipsis-online ellipsis-online-1">2025年最新Windows里边的<em>powershell</em><em>无法</em><em>执行</em><em>脚本</em><em>(</em>包教包会,学不会你来喷我)</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/2303_78851087" target="_blank"><span class="blog-title">2303_78851087的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">03-06</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					533
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/2303_78851087/article/details/146058275" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.2","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~YuanLiJiHua~Ctr-2-146058275-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"2","strategy":"2~default~YuanLiJiHua~Ctr","dest":"https://blog.csdn.net/2303_78851087/article/details/146058275"}'  data-report-query='spm=1001.2101.3001.6650.2&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7ECtr-2-146058275-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EYuanLiJiHua%7ECtr-2-146058275-blog-104269284.235%5Ev43%5Econtrol'>
+				<div class="desc ellipsis-online ellipsis-online-1">2025年最新Windows里边的<em>powershell</em><em>无法</em><em>执行</em><em>脚本</em><em>(</em>包教包会,学不会你来喷我)</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://liuzhen.blog.csdn.net/article/details/127781065"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.3","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~Ctr-3-127781065-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"3","strategy":"2~default~baidujs_baidulandingword~Ctr","dest":"https://liuzhen.blog.csdn.net/article/details/127781065"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://liuzhen.blog.csdn.net/article/details/127781065" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.3","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~Ctr-3-127781065-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"3","strategy":"2~default~baidujs_baidulandingword~Ctr","dest":"https://liuzhen.blog.csdn.net/article/details/127781065"}'  data-report-query='spm=1001.2101.3001.6650.3&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7Ebaidujs_baidulandingword%7ECtr-3-127781065-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7Ebaidujs_baidulandingword%7ECtr-3-127781065-blog-104269284.235%5Ev43%5Econtrol'>
+					<div class="left ellipsis-online ellipsis-online-1">CALL命令<em>无法</em>在<em>PowerShell</em>中使用</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/liuzehn" target="_blank"><span class="blog-title">liuzhen007的专栏</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">11-10</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					3957
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://liuzhen.blog.csdn.net/article/details/127781065" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.3","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~Ctr-3-127781065-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"3","strategy":"2~default~baidujs_baidulandingword~Ctr","dest":"https://liuzhen.blog.csdn.net/article/details/127781065"}'  data-report-query='spm=1001.2101.3001.6650.3&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7Ebaidujs_baidulandingword%7ECtr-3-127781065-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7Ebaidujs_baidulandingword%7ECtr-3-127781065-blog-104269284.235%5Ev43%5Econtrol'>
+				<div class="desc ellipsis-online ellipsis-online-1">在 <em>PowerShell</em> 终端中使用 CALL 命令时报错：CALL <em>:</em> <em>无法</em>将&ldquo;CALL&rdquo;项识别为 cmdlet、函数、<em>脚本</em>文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。所在位置 行<em>:</em>1 字符<em>:</em> 1</div>
+			</a>
+		</div>
+	</div>
+</div>
+		<dl id="recommend-item-box-tow" class="recommend-item-box type_blog clearfix">
+			
+		</dl>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/m0_46708757/article/details/130769090"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.4","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-4-130769090-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"4","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/m0_46708757/article/details/130769090"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/m0_46708757/article/details/130769090" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.4","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-4-130769090-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"4","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/m0_46708757/article/details/130769090"}'  data-report-query='spm=1001.2101.3001.6650.4&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-4-130769090-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-4-130769090-blog-104269284.235%5Ev43%5Econtrol'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>PowerShell</em>不能运行<em>脚本</em></div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/m0_46708757" target="_blank"><span class="blog-title">m0_46708757的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">05-19</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					725
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/m0_46708757/article/details/130769090" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.4","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-4-130769090-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"4","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/m0_46708757/article/details/130769090"}'  data-report-query='spm=1001.2101.3001.6650.4&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-4-130769090-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-4-130769090-blog-104269284.235%5Ev43%5Econtrol'>
+				<div class="desc ellipsis-online ellipsis-online-1">4、然后你就可以&ldquo;为所欲为&rdquo;的运行自己的<em>脚本</em>了----&gt;SHOW   TIME！1、在Windows中搜索<em>Powershell</em>，并且直接打开。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/weixin_30873847/article/details/95968252"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.5","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-5-95968252-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"5","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/weixin_30873847/article/details/95968252"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/weixin_30873847/article/details/95968252" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.5","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-5-95968252-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"5","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/weixin_30873847/article/details/95968252"}'  data-report-query='spm=1001.2101.3001.6650.5&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-5-95968252-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-5-95968252-blog-104269284.235%5Ev43%5Econtrol'>
+					<div class="left ellipsis-online ellipsis-online-1">windowserver中<em>PowerShell</em>禁止<em>脚本</em><em>执行</em>的解决方法</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/weixin_30873847" target="_blank"><span class="blog-title">weixin_30873847的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">06-20</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					970
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/weixin_30873847/article/details/95968252" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.5","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-5-95968252-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"5","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/weixin_30873847/article/details/95968252"}'  data-report-query='spm=1001.2101.3001.6650.5&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-5-95968252-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-5-95968252-blog-104269284.235%5Ev43%5Econtrol'>
+				<div class="desc ellipsis-online ellipsis-online-1">最近工作中在上线项目的时候安装Exceptionless时，运行<em>powershell</em><em>脚本</em>，发现报错：
+
+报错提示：You cannot run this script on the current system.
+
+首次在计算机上启动 Windows <em>PowerShell</em> 时，现用<em>执行</em>策略很可能是 Restricted（默认设置）。
+ Restricted 策略不允许任何<em>脚本</em>运...</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/qq_65524481/article/details/131744191"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.6","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-6-131744191-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"6","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/qq_65524481/article/details/131744191"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/qq_65524481/article/details/131744191" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.6","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-6-131744191-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"6","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/qq_65524481/article/details/131744191"}'  data-report-query='spm=1001.2101.3001.6650.6&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-6-131744191-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-6-131744191-blog-104269284.235%5Ev43%5Econtrol'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>powershell</em><em>无法</em>运行<em>脚本</em></div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/qq_65524481" target="_blank"><span class="blog-title">qq_65524481的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">07-15</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					424
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/qq_65524481/article/details/131744191" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.6","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-6-131744191-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"6","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/qq_65524481/article/details/131744191"}'  data-report-query='spm=1001.2101.3001.6650.6&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-6-131744191-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-6-131744191-blog-104269284.235%5Ev43%5Econtrol'>
+				<div class="desc ellipsis-online ellipsis-online-1">power shell运行<em>脚本</em>报错</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/xyz8848/article/details/135646679"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.7","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-7-135646679-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"7","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/xyz8848/article/details/135646679"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/xyz8848/article/details/135646679" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.7","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-7-135646679-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"7","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/xyz8848/article/details/135646679"}'  data-report-query='spm=1001.2101.3001.6650.7&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-7-135646679-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-7-135646679-blog-104269284.235%5Ev43%5Econtrol'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>PowerShell</em> 中<em>无法</em>运行 .ps1 文件<em>解决方案</em></div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/xyz8848" target="_blank"><span class="blog-title">xyz8848的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">01-17</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					3113
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/xyz8848/article/details/135646679" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.7","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-7-135646679-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"7","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/xyz8848/article/details/135646679"}'  data-report-query='spm=1001.2101.3001.6650.7&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-7-135646679-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-7-135646679-blog-104269284.235%5Ev43%5Econtrol'>
+				<div class="desc ellipsis-online ellipsis-online-1">由于 <em>PowerShell</em> 的<em>执行</em>策略（Execution Policy），在默认情况下，Windows 上的 <em>PowerShell</em> <em>执行</em>策略设置为 &ldquo;Restricted&rdquo;，即不允许运行任何<em>脚本</em>。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_download clearfix" data-url="https://download.csdn.net/download/weixin_38569722/14893546"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.8","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-8-14893546-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"8","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/weixin_38569722/14893546"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://download.csdn.net/download/weixin_38569722/14893546" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.8","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-8-14893546-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"8","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/weixin_38569722/14893546"}'  data-report-query='spm=1001.2101.3001.6650.8&utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-8-14893546-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-8-14893546-blog-104269284.235%5Ev43%5Econtrol'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>PowerShell</em>因为在此系统中禁止<em>执行</em><em>脚本</em>的解决方法</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info display-flex">
+					<span class="info-block">01-20</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://download.csdn.net/download/weixin_38569722/14893546" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.8","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-8-14893546-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"8","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/weixin_38569722/14893546"}'  data-report-query='spm=1001.2101.3001.6650.8&utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-8-14893546-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-8-14893546-blog-104269284.235%5Ev43%5Econtrol'>
+				<div class="desc ellipsis-online ellipsis-online-1"><em>无法</em>加载文件 ******.ps1，因为在此系统中禁止<em>执行</em><em>脚本</em>。有关详细信息，请参阅 &ldquo;get-help about_signing&rdquo;。  所在位置 行<em>:</em>1 字符<em>:</em> 17  <em>+</em> E<em>:</em>\Test\test.ps1 &lt;&lt;&lt;&lt;  <em>+</em> <em>CategoryInfo</em> <em>:</em> NotSpecified<em>:</em> <em>(</em><em>:</em>) ...</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_download clearfix" data-url="https://download.csdn.net/download/weixin_38716872/12876114"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.9","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-9-12876114-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"9","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/weixin_38716872/12876114"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://download.csdn.net/download/weixin_38716872/12876114" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.9","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-9-12876114-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"9","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/weixin_38716872/12876114"}'  data-report-query='spm=1001.2101.3001.6650.9&utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-9-12876114-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-9-12876114-blog-104269284.235%5Ev43%5Econtrol'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>Powershell</em>实现编写和运行<em>脚本</em></div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info display-flex">
+					<span class="info-block">09-21</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://download.csdn.net/download/weixin_38716872/12876114" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.9","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-9-12876114-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"9","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/weixin_38716872/12876114"}'  data-report-query='spm=1001.2101.3001.6650.9&utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-9-12876114-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-9-12876114-blog-104269284.235%5Ev43%5Econtrol'>
+				<div class="desc ellipsis-online ellipsis-online-1">### <em>Powershell</em>实现编写和运行<em>脚本</em>  #### 一、<em>Powershell</em>概述与...通过以上内容的学习，读者不仅能够了解如何使用 <em>PowerShell</em> 编写和运行<em>脚本</em>的基本方法，还能进一步掌握如何有效地调试和优化<em>脚本</em>，从而提高工作效率。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_download clearfix" data-url="https://download.csdn.net/download/weixin_42131790/18835207"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.10","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-10-18835207-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"10","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/weixin_42131790/18835207"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://download.csdn.net/download/weixin_42131790/18835207" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.10","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-10-18835207-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"10","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/weixin_42131790/18835207"}'  data-report-query='spm=1001.2101.3001.6650.10&utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-10-18835207-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-10-18835207-blog-104269284.235%5Ev43%5Econtrol'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>Powershell</em><em>:</em><em>Powershell</em><em>脚本</em></div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info display-flex">
+					<span class="info-block">05-18</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://download.csdn.net/download/weixin_42131790/18835207" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.10","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-download-2~default~OPENSEARCH~Rate-10-18835207-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"10","strategy":"2~default~OPENSEARCH~Rate","dest":"https://download.csdn.net/download/weixin_42131790/18835207"}'  data-report-query='spm=1001.2101.3001.6650.10&utm_medium=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-10-18835207-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-download-2%7Edefault%7EOPENSEARCH%7ERate-10-18835207-blog-104269284.235%5Ev43%5Econtrol'>
+				<div class="desc ellipsis-online ellipsis-online-1"><em>PowerShell</em>是一种强大的命令行接口...掌握<em>PowerShell</em><em>脚本</em>编写不仅可以提高系统管理效率，也为自动化任务和集成<em>解决方案</em>提供了便利。对于系统管理员和开发者来说，熟悉和精通<em>PowerShell</em>是现代Windows环境中的必备技能。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/m0_60884855/article/details/129709173"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.11","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-11-129709173-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"11","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/m0_60884855/article/details/129709173"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/m0_60884855/article/details/129709173" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.11","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-11-129709173-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"11","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/m0_60884855/article/details/129709173"}'  data-report-query='spm=1001.2101.3001.6650.11&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-11-129709173-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-11-129709173-blog-104269284.235%5Ev43%5Econtrol'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>powershell</em> 不能<em>执行</em>命令</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/m0_60884855" target="_blank"><span class="blog-title">m0_60884855的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">03-22</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					1656
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/m0_60884855/article/details/129709173" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.11","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-11-129709173-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"11","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/m0_60884855/article/details/129709173"}'  data-report-query='spm=1001.2101.3001.6650.11&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-11-129709173-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-11-129709173-blog-104269284.235%5Ev43%5Econtrol'>
+				<div class="desc ellipsis-online ellipsis-online-1">使用 set-executionpolicy remotesigned 可以改的<em>执行</em>策略RemoteSigned。有次在<em>powershell</em>窗口<em>执行</em>命令行的时候会提示<em>无法</em>识别改命令原因是在部分系统上面<em>脚本</em>的<em>执行</em>权限是禁止的。然后系统会提示是否更改，输入 yes 即可 有些更改不了的可以使用管理员身份打开窗口重试。AllSigned<em>:</em> 仅当<em>脚本</em>由受信任的发布者签名时才能运行。RemoteSigned<em>:</em> 在本地创建的<em>脚本</em>可以运行。其中：Restricted<em>:</em> <em>脚本</em>不能运行。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/key_ls/article/details/115151069"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.12","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-12-115151069-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"12","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/key_ls/article/details/115151069"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/key_ls/article/details/115151069" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.12","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-12-115151069-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"12","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/key_ls/article/details/115151069"}'  data-report-query='spm=1001.2101.3001.6650.12&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-12-115151069-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-12-115151069-blog-104269284.235%5Ev43%5Econtrol'>
+					<div class="left ellipsis-online ellipsis-online-1">通过配置alias解决<em>PowerShell</em><em>无法</em>正常使用workon命令的<em>问题</em></div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/key_ls" target="_blank"><span class="blog-title">key_ls的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">03-23</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					399
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/key_ls/article/details/115151069" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.12","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-12-115151069-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"12","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/key_ls/article/details/115151069"}'  data-report-query='spm=1001.2101.3001.6650.12&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-12-115151069-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-12-115151069-blog-104269284.235%5Ev43%5Econtrol'>
+				<div class="desc ellipsis-online ellipsis-online-1">给<em>PowerShell</em>配置别名
+参考网站<em>:</em> https<em>:</em>//segmentfault.com/a/1190000015928399
+win10配置了virtualenv和virtualenvwrapper后<em>无法</em>正常使用workon, 可以通过像在ubuntu的.bashrc中配置alias一样配置别名来解决<em>问题</em>
+
+在C<em>:</em>\Users\xxx\Documents\Windows<em>PowerShell</em>下创建Microsoft.<em>PowerShell</em>_profile.ps1文件
+打开Microsoft.PowerSh</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://devpress.csdn.net/v1/article/detail/125072921"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.13","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-13-125072921-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"13","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/125072921"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://devpress.csdn.net/v1/article/detail/125072921" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.13","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-13-125072921-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"13","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/125072921"}'  data-report-query='spm=1001.2101.3001.6650.13&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-13-125072921-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-13-125072921-blog-104269284.235%5Ev43%5Econtrol'>
+					<div class="left ellipsis-online ellipsis-online-1">安装webpack <em>powershell</em>出现 Set-ExecutionPolicy <em>:</em> 对注册表项&ldquo;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\<em>PowerShell</em></div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/gu2022_3_5_21_23" target="_blank"><span class="blog-title">gu2022_3_5_21_23的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">05-31</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					7077
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://devpress.csdn.net/v1/article/detail/125072921" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.13","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~activity-13-125072921-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"13","strategy":"2~default~BlogCommendFromBaidu~activity","dest":"https://devpress.csdn.net/v1/article/detail/125072921"}'  data-report-query='spm=1001.2101.3001.6650.13&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-13-125072921-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7Eactivity-13-125072921-blog-104269284.235%5Ev43%5Econtrol'>
+				<div class="desc ellipsis-online ellipsis-online-1">是由于本地默认禁止<em>执行</em>外部<em>脚本</em>输入 get-executionpolicy 查看<em>执行</em>政策默认显示Restricted输入 set-executionpolicy remotesigned 改变默认输入Y出现说明没设置成功出现这个输入：输入Y再次输入 get-executionpolicy 查看 是否解除限制显示 RemoteSigned  显示成功</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://strong.blog.csdn.net/article/details/135003107"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.14","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-14-135003107-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"14","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://strong.blog.csdn.net/article/details/135003107"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://strong.blog.csdn.net/article/details/135003107" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.14","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-14-135003107-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"14","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://strong.blog.csdn.net/article/details/135003107"}'  data-report-query='spm=1001.2101.3001.6650.14&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-14-135003107-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-14-135003107-blog-104269284.235%5Ev43%5Econtrol'>
+					<div class="left ellipsis-online ellipsis-online-1"><em>执行</em>set-executionpolicy RemoteSigned<em>问题</em></div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/weixin_36873225" target="_blank"><span class="blog-title">weixin_36873225的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">12-21</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					337
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://strong.blog.csdn.net/article/details/135003107" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.14","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-14-135003107-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"14","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://strong.blog.csdn.net/article/details/135003107"}'  data-report-query='spm=1001.2101.3001.6650.14&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-14-135003107-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-14-135003107-blog-104269284.235%5Ev43%5Econtrol'>
+				<div class="desc ellipsis-online ellipsis-online-1">set-ExecutionPolicy <em>:</em> 对注册表项&ldquo;HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\<em>PowerShell</em>\1\ShellIds\Microsoft.<em>PowerShell</em>&rdquo;的访问被拒绝。<em>执行</em>策略，请使用&ldquo;以管理员身份运行&rdquo;选项启动 Windows <em>PowerShell</em>。要更改当前用户的<em>执行</em>策略，请运行 &ldquo;Set-ExecutionPolicy -Scope CurrentUser&rdquo;。<em>执行</em>set-executionpolicy RemoteSigned<em>问题</em>。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/weixin_50637054/article/details/129366589"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.15","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-15-129366589-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"15","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/weixin_50637054/article/details/129366589"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/weixin_50637054/article/details/129366589" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.15","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-15-129366589-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"15","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/weixin_50637054/article/details/129366589"}'  data-report-query='spm=1001.2101.3001.6650.15&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-15-129366589-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-15-129366589-blog-104269284.235%5Ev43%5Econtrol'>
+					<div class="left ellipsis-online ellipsis-online-1">Vue2_尚品汇前端项目day02超详细笔记_尚硅谷</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/weixin_50637054" target="_blank"><span class="blog-title">weixin_50637054的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">03-07</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					705
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/weixin_50637054/article/details/129366589" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.15","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-15-129366589-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"15","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/weixin_50637054/article/details/129366589"}'  data-report-query='spm=1001.2101.3001.6650.15&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-15-129366589-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-15-129366589-blog-104269284.235%5Ev43%5Econtrol'>
+				<div class="desc ellipsis-online ellipsis-online-1">Vue2_尚品汇前端项目day02超详细笔记_尚硅谷</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/lumping/article/details/107251733"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.16","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-16-107251733-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"16","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/lumping/article/details/107251733"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/lumping/article/details/107251733" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.16","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-16-107251733-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"16","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/lumping/article/details/107251733"}'  data-report-query='spm=1001.2101.3001.6650.16&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-16-107251733-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-16-107251733-blog-104269284.235%5Ev43%5Econtrol'>
+					<div class="left ellipsis-online ellipsis-online-1">win10 系统下 VScode Python 中文输出乱码处理办法</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/lumping" target="_blank"><span class="blog-title">未觉池塘春草梦，阶前梧叶已秋声</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">07-10</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					999
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/lumping/article/details/107251733" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.16","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-16-107251733-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"16","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/lumping/article/details/107251733"}'  data-report-query='spm=1001.2101.3001.6650.16&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-16-107251733-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-16-107251733-blog-104269284.235%5Ev43%5Econtrol'>
+				<div class="desc ellipsis-online ellipsis-online-1">一般出这个<em>问题</em>多数是文本与<em>执行</em>软件使用的编码方式不统一，编码方式一般就是gbk（代号936），或者utf-8（65001），现在我们把编码方式固定为utf-8 格式
+
+首先查看<em>执行</em>代码的编码方式，
+
+
+
+win10 系统下一般使用cmd或者<em>powershell</em> 作为控制台
+
+那么需要看一下cmd 或者power shell 的编码方式，在cmd或者<em>powershell</em>里输入
+
+
+chcp
+
+
+
+可以看到我的cmd编码方式是utf-8<em>(</em>65001)，而<em>powershell</em>方式为 gbk<em>(</em>936)。
+
+现在我们</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_blog clearfix" data-url="https://blog.csdn.net/w9527lk/article/details/129807055"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.17","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-17-129807055-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"17","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/w9527lk/article/details/129807055"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://blog.csdn.net/w9527lk/article/details/129807055" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.17","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-17-129807055-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"17","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/w9527lk/article/details/129807055"}'  data-report-query='spm=1001.2101.3001.6650.17&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-17-129807055-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-17-129807055-blog-104269284.235%5Ev43%5Econtrol'>
+					<div class="left ellipsis-online ellipsis-online-1">virtualenv虚拟环境的基本操作</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info">
+					<a href="https://blog.csdn.net/w9527lk" target="_blank"><span class="blog-title">w9527lk的博客</span></a>
+				</div>
+				<div class="info display-flex">
+					<span class="info-block time">03-28</span>
+					<span class="info-block read"><img class="read-img" src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					2178
+					</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://blog.csdn.net/w9527lk/article/details/129807055" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.17","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-blog-2~default~BlogCommendFromBaidu~Rate-17-129807055-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"17","strategy":"2~default~BlogCommendFromBaidu~Rate","dest":"https://blog.csdn.net/w9527lk/article/details/129807055"}'  data-report-query='spm=1001.2101.3001.6650.17&utm_medium=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-17-129807055-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-blog-2%7Edefault%7EBlogCommendFromBaidu%7ERate-17-129807055-blog-104269284.235%5Ev43%5Econtrol'>
+				<div class="desc ellipsis-online ellipsis-online-1"><em>无法</em>将&ldquo;source&rdquo;项识别为 cmdlet、函数、<em>脚本</em>文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。</div>
+			</a>
+		</div>
+	</div>
+</div>
+<div class="recommend-item-box type_chatgpt clearfix" data-url="https://wenku.csdn.net/answer/66jb7mj8j8"  data-report-view='{"ab":"new","spm":"1001.2101.3001.6650.18","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-chatgpt-2~default~CTRLIST~Position-18-66jb7mj8j8-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"18","strategy":"2~default~CTRLIST~Position","dest":"https://wenku.csdn.net/answer/66jb7mj8j8"}'>
+	<div class="content-box">
+		<div class="content-blog display-flex">
+			<div class="title-box">
+				<a href="https://wenku.csdn.net/answer/66jb7mj8j8" class="tit" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.18","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-chatgpt-2~default~CTRLIST~Position-18-66jb7mj8j8-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"18","strategy":"2~default~CTRLIST~Position","dest":"https://wenku.csdn.net/answer/66jb7mj8j8"}'  data-report-query='spm=1001.2101.3001.6650.18&utm_medium=distribute.pc_relevant.none-task-chatgpt-2%7Edefault%7ECTRLIST%7EPosition-18-66jb7mj8j8-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-chatgpt-2%7Edefault%7ECTRLIST%7EPosition-18-66jb7mj8j8-blog-104269284.235%5Ev43%5Econtrol'>
+					<div class="left ellipsis-online ellipsis-online-1">source <em>:</em> <em>无法</em>将&ldquo;source&rdquo;项识别为 cmdlet、函数、<em>脚本</em>文件或可运行程序的名称。请检查名称的拼写，如果包括路径，请确保路径正确，然后再试一次。 所在位置 行<em>:</em>1 字符<em>:</em> 1 <em>+</em> source activate <em>+</em> ~~~~~~     <em>+</em> <em>CategoryInfo</em>          <em>:</em> <em>ObjectNotFound</em><em>:</em> <em>(</em>source<em>:</em>String) [], <em>Comma</em>ndNotFoundException     <em>+</em> <em>FullyQualifiedErrorId</em> <em>:</em> <em>Comma</em>ndNotFoundException</div>
+					<div class="tag">最新发布</div>
+				</a>
+			</div>
+			<div class="info-box display-flex">
+				<div class="info display-flex">
+					<span class="info-block">03-17</span>
+				</div>
+			</div>
+		</div>
+		<div class="desc-box">
+			<a href="https://wenku.csdn.net/answer/66jb7mj8j8" target="_blank"  data-report-click='{"ab":"new","spm":"1001.2101.3001.6650.18","mod":"popu_387","extra":"{\"highlightScore\":0.0,\"utm_medium\":\"distribute.pc_relevant.none-task-chatgpt-2~default~CTRLIST~Position-18-66jb7mj8j8-blog-104269284.235^v43^control\",\"dist_request_id\":\"1746165859802_91526\"}","dist_request_id":"1746165859802_91526","ab_strategy":"landing_bge_commercial_hanlp","index":"18","strategy":"2~default~CTRLIST~Position","dest":"https://wenku.csdn.net/answer/66jb7mj8j8"}'  data-report-query='spm=1001.2101.3001.6650.18&utm_medium=distribute.pc_relevant.none-task-chatgpt-2%7Edefault%7ECTRLIST%7EPosition-18-66jb7mj8j8-blog-104269284.235%5Ev43%5Econtrol&depth_1-utm_source=distribute.pc_relevant.none-task-chatgpt-2%7Edefault%7ECTRLIST%7EPosition-18-66jb7mj8j8-blog-104269284.235%5Ev43%5Econtrol'>
+				<div class="desc ellipsis-online ellipsis-online-1">&lt;think&gt;好的，我现在需要解决用户提到的在命令行中使用`source`命令时出现的&ldquo;未找到&rdquo;或&ldquo;<em>Comma</em>ndNotFoundException&rdquo;错误。用户可能是在尝试激活虚拟环境，比如Python的venv或者其他类似的环境时遇到了这个<em>问题</em>。首先，我得回忆一下不同操作系统和Shell之间命令的差异。
+
+首先，用户提到使用`source`命令，这在Unix-like系统（如Linux或macOS）的Bash或Zsh中是常见的，用于<em>执行</em><em>脚本</em>文件并在当前Shell环境中生效。例如，激活虚拟环境通常使用`source venv/bin/activate`。但如果在Windows的命令提示符（cmd）或<em>PowerShell</em>中运行这个命令，就会报错，因为Windows的Shell不支持`source`命令。
+
+接下来，我需要考虑用户可能使用的操作系统和Shell类型。如果用户是在Windows的cmd中尝试运行`source`，那自然会失败，因为cmd使用`call`或者直接运行批处理文件。例如，在cmd中激活虚拟环境应该用`venv\Scripts\activate.bat`。而<em>PowerShell</em>的情况不同，它使用`.\venv\Scripts\Activate.ps1`，但可能需要先设置<em>执行</em>策略，允许<em>脚本</em>运行，否则可能会被阻止。
+
+另外，用户可能混淆了不同Shell的语法。比如在<em>PowerShell</em>中，虽然有些命令不区分大小写，但激活<em>脚本</em>可能需要指定完整路径，并且使用`&amp;`操作符来<em>执行</em><em>脚本</em>。此外，<em>PowerShell</em>默认可能限制<em>脚本</em><em>执行</em>，需要用户使用`Set-ExecutionPolicy`来更改权限，但这可能会带来安全风险，需要用户确认。
+
+另一个可能性是用户在使用Windows的WSL（Windows Subsystem for Linux），这时候应该在Linux子系统中使用Bash命令，即`source`是有效的。但用户如果没有切换到WSL环境，直接在cmd或<em>PowerShell</em>中使用，就会出现<em>问题</em>。
+
+总结下来，解决步骤应该是先确定用户的操作系统和Shell类型，然后提供对应的正确命令。对于Windows用户，区分cmd和<em>PowerShell</em>的不同方法；对于Linux/macOS用户，确认使用Bash或Zsh的正确语法。同时，提醒用户关于<em>PowerShell</em><em>执行</em>策略的<em>问题</em>，以及路径是否正确，是否存在激活<em>脚本</em>文件。
+
+另外，需要检查用户的环境变量和虚拟环境的安装是否正确，是否存在拼写错误或路径错误。例如，虚拟环境的目录结构是否正确，activate<em>脚本</em>是否存在于Scripts目录下。如果用户误用了路径，也会导致命令失败。
+
+最后，可能需要建议用户查看相关文档，或者使用更现代的虚拟环境管理工具，如Python的`venv`模块或者第三方工具如`virtualenvwrapper`，这些工具可能提供了跨平台的命令别名，减少此类错误的发生。&lt;/think&gt;在命令行中使用`source`命令时出现&ldquo;<em>Comma</em>ndNotFoundException&rdquo;错误，通常是由于操作系统或Shell类型不兼容导致的。以下是分步骤<em>解决方案</em>：
+
+### **1. 确认操作系统和Shell类型**
+- **Linux/macOS**：默认使用Bash/Zsh等Shell，支持`source`命令。
+- **Windows**：需区分使用场景：
+  - **cmd**：不支持`source`命令。
+  - **<em>PowerShell</em>**：部分支持类似功能，但语法不同[^2]。
+  - **WSL（Windows子系统Linux）**：视为Linux环境处理。
+
+---
+
+### **2. 不同场景下的<em>解决方案</em>**
+#### **场景1：Linux/macOS（Bash/Zsh）**
+直接使用`source`命令激活虚拟环境：
+```bash
+source venv/bin/activate  # 替换为实际虚拟环境路径
+```
+
+#### **场景2：Windows cmd**
+使用`call`命令调用批处理<em>脚本</em>：
+```cmd
+call venv\Scripts\activate.bat  # 注意路径分隔符和文件后缀
+```
+
+#### **场景3：Windows <em>PowerShell</em>**
+- **方法1**：使用`&amp;`操作符<em>执行</em><em>脚本</em>：
+  ```<em>powershell</em>
+  &amp; .\venv\Scripts\Activate.ps1  # 需指定完整路径
+  ```
+- **方法2**：若提示&ldquo;禁止<em>脚本</em><em>执行</em>&rdquo;，需调整<em>执行</em>策略：
+  ```<em>powershell</em>
+  Set-ExecutionPolicy RemoteSigned -Scope CurrentUser  # 临时允许本地<em>脚本</em>运行[^2]
+  ```
+
+---
+
+### **3. 检查路径和文件是否存在**
+- 确认虚拟环境的`activate`<em>脚本</em>路径正确：
+  - **Windows**：`venv\Scripts\activate.bat` 或 `activate.ps1`
+  - **Linux/macOS**：`venv/bin/activate`
+- 若文件缺失，需重新创建虚拟环境：
+  ```bash
+  python -m venv venv  # 使用Python内置模块重建
+  ```
+
+---
+
+### **4. 通用替代方案**
+使用`.`代替`source`（部分Shell支持）：
+```bash
+. venv/bin/activate  # Linux/macOS或WSL中有效
+```
+
+---
+
+### **5. 验证虚拟环境激活**
+激活后命令行提示符应显示环境名称：
+```bash
+<em>(</em>venv) user@host<em>:</em>~$  # Linux/macOS示例
+```
+或
+```<em>powershell</em>
+<em>(</em>venv) PS C<em>:</em>\path&gt;  # Windows <em>PowerShell</em>示例
+```
+
+---</div>
+			</a>
+		</div>
+	</div>
+</div>
+              </div>
+<div class="blog-footer-bottom" style="margin-top:10px;"></div>
+<script src="https://g.csdnimg.cn/common/csdn-footer/csdn-footer.js" data-isfootertrack="false" type="text/javascript"></script>
+<script type="text/javascript">
+    window.csdn.csdnFooter.options = {
+        el: '.blog-footer-bottom',
+        type: 2
+    }
+</script>          </main>
+<aside class="blog_container_aside">
+
+<div id="asideProfile" class="aside-box active">
+    <div class="profile-intro d-flex">
+        <div class="avatar-box d-flex justify-content-center flex-column">
+            <a href="https://blog.csdn.net/weixin_43669045" target="_blank" data-report-click='{"mod":"popu_379","spm":"3001.4121","dest":"https://blog.csdn.net/weixin_43669045","ab":"new"}'>
+                <img src="https://profile-avatar.csdnimg.cn/e04898999a894fdea2f948daf771790c_weixin_43669045.jpg!1" class="avatar_pic">
+            </a>
+        </div>
+        <div class="user-info d-flex flex-column profile-intro-name-box">
+            <div class="profile-intro-name-boxTop">
+                <a href="https://blog.csdn.net/weixin_43669045" target="_blank" class="" id="uid" title="Alexhirchi" data-report-click='{"mod":"popu_379","spm":"3001.4122","dest":"https://blog.csdn.net/weixin_43669045","ab":"new"}'>
+                    <span class="name" username="weixin_43669045">Alexhirchi</span>
+                </a>
+            </div>
+            <div class="profile-intro-name-boxFooter-new">
+              <p class="profile-intro-name-leve">
+                <span>
+                  博客等级
+                </span>
+                  <img class="level" src="https://csdnimg.cn/identity/blog4.png">
+              </p>
+                <span class="profile-intro-name-years" title="已加入 CSDN 6年">码龄6年</span>
+               
+            </div>
+        </div>
+    </div>
+    <div class="profile-intro-rank-information">
+      <dl>
+        <a href="https://blog.csdn.net/weixin_43669045" data-report-click='{"mod":"1598321000_001","spm":"3001.4310"}' data-report-query="t=1">  
+            <dd><span >32</span></dd>
+            <dt>原创</dt>
+        </a>
+      </dl>
+       <dl title="65">
+        <dd>65</dd>
+        <dt>点赞</dt>
+      </dl>
+       <dl title="323">
+        <dd>323</dd>
+        <dt>收藏</dt>
+      </dl>
+      <dl id="fanBox" title="36">
+        <dd><span id="fan">36</span></dd>
+        <dt>粉丝</dt>
+      </dl>
+    </div>
+    <div class="profile-intro-name-boxOpration">
+        <div class="opt-letter-watch-box"> 
+            <a class="personal-watch bt-button" id="btnAttent" >关注</a>  
+        </div>
+        <div class="opt-letter-watch-box">
+        <a rel="nofollow" class="bt-button personal-letter" href="https://im.csdn.net/chat/weixin_43669045" target="_blank" rel="noopener">私信</a>
+        </div>
+    </div>
+</div>
+
+
+
+
+<div id="asideHotArticle" class="aside-box">
+	<h3 class="aside-title">热门文章</h3>
+	<div class="aside-content">
+		<ul class="hotArticle-list">
+			<li>
+				<a href="https://blog.csdn.net/weixin_43669045/article/details/104269284" target="_blank"  data-report-click='{"mod":"popu_541","spm":"3001.4139","dest":"https://blog.csdn.net/weixin_43669045/article/details/104269284","ab":"new"}'>
+				Powershell无法执行脚本问题解决方案
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">25216</span>
+                </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/weixin_43669045/article/details/105627562" target="_blank"  data-report-click='{"mod":"popu_541","spm":"3001.4139","dest":"https://blog.csdn.net/weixin_43669045/article/details/105627562","ab":"new"}'>
+				Buuctf -web wp汇总(一)
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">7051</span>
+                </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/weixin_43669045/article/details/104426733" target="_blank"  data-report-click='{"mod":"popu_541","spm":"3001.4139","dest":"https://blog.csdn.net/weixin_43669045/article/details/104426733","ab":"new"}'>
+				安装 VMware Tools 时报 客户机操作系统已将 CD-ROM 门锁定，并且可能正在使用CD-ROM--解决方案
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">5396</span>
+                </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/weixin_43669045/article/details/107693227" target="_blank"  data-report-click='{"mod":"popu_541","spm":"3001.4139","dest":"https://blog.csdn.net/weixin_43669045/article/details/107693227","ab":"new"}'>
+				pikachu漏洞平台靶场练习 总结 wp
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">4828</span>
+                </a>
+			</li>
+			<li>
+				<a href="https://blog.csdn.net/weixin_43669045/article/details/107093451" target="_blank"  data-report-click='{"mod":"popu_541","spm":"3001.4139","dest":"https://blog.csdn.net/weixin_43669045/article/details/107093451","ab":"new"}'>
+				动态调用函数时的命令执行对于eval()和assert()的执行问题
+					<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/readCountWhite.png" alt="">
+					<span class="read">3818</span>
+                </a>
+			</li>
+		</ul>
+	</div>
+</div>
+<div id="asideCategory" class="aside-box flexible-box">
+    <h3 class="aside-title">分类专栏</h3>
+    <div class="aside-content" id="aside-content">
+        <ul>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_43669045/category_9867735.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_43669045/category_9867735.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/blog_column_migrate/c9e7664acc0954b409c406d6935c4e95.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        逻辑漏洞
+                    </span>
+                </a>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_43669045/category_9737177.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_43669045/category_9737177.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/blog_column_migrate/30bd09d43aab9abf7dab0671c0491bb8.jpeg?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        Linux
+                    </span>
+                </a>
+                <span class="special-column-num">2篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_43669045/category_10158887.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_43669045/category_10158887.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756927.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        学习安全路上的坑
+                    </span>
+                </a>
+                <span class="special-column-num">2篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_43669045/category_10303552.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_43669045/category_10303552.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        Vulnhub靶场
+                    </span>
+                </a>
+                <span class="special-column-num">5篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_43669045/category_9794069.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_43669045/category_9794069.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756928.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        CTF
+                    </span>
+                </a>
+                <span class="special-column-num">10篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_43669045/category_10551266.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_43669045/category_10551266.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756918.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        代码审计
+                    </span>
+                </a>
+                <span class="special-column-num">1篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_43669045/category_10250785.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_43669045/category_10250785.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756925.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        web漏洞靶场
+                    </span>
+                </a>
+                <span class="special-column-num">5篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_43669045/category_9765037.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_43669045/category_9765037.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756754.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        新手入门
+                    </span>
+                </a>
+                <span class="special-column-num">4篇</span>
+            </li>
+            <li>
+                <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_43669045/category_9761308.html" data-report-click='{"mod":"popu_537","spm":"3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_43669045/category_9761308.html","ab":"new"}'>
+                    <div class="special-column-bar "></div>
+                    <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756757.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                    <span class="title oneline">
+                        Oracle学习
+                    </span>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <p class="text-center">
+       <a class="flexible-btn" data-fbox="aside-archive"><img class="look-more" src="https://csdnimg.cn/release/blogv2/dist/pc/img/arrowDownWhite.png" alt=""></a>
+    </p>
+</div>
+<div id="asideNewComments" class="aside-box">
+    <h3 class="aside-title">最新评论</h3>
+    <div class="aside-content">
+        <ul class="newcomment-list">
+            <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/weixin_43669045/article/details/105055872#comments_35290203" data-report-click='{"mod":"popu_542","spm":"3001.4231","dest":"https://blog.csdn.net/weixin_43669045/article/details/105055872#comments_35290203","ab":"new"}' data-report-view='{"mod":"popu_542","spm":"3001.4231","dest":"https://blog.csdn.net/weixin_43669045/article/details/105055872#comments_35290203","ab":"new"}'>CTFHUB-web-信息泄露wp总结</a>
+                <p class="comment ellipsis">
+                    <a href="https://blog.csdn.net/2301_79726279" class="user-name" target="_blank">W X@: </a>
+                    <span class="code-comments">为什么svn泄漏 我的pristine里面什么都没有呢</span>
+                </p>
+            </li>
+            <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/weixin_43669045/article/details/104269284#comments_32628053" data-report-click='{"mod":"popu_542","spm":"3001.4231","dest":"https://blog.csdn.net/weixin_43669045/article/details/104269284#comments_32628053","ab":"new"}' data-report-view='{"mod":"popu_542","spm":"3001.4231","dest":"https://blog.csdn.net/weixin_43669045/article/details/104269284#comments_32628053","ab":"new"}'>Powershell无法执行脚本问题解决方案</a>
+                <p class="comment ellipsis">
+                    <a href="https://blog.csdn.net/qq_40851797" class="user-name" target="_blank">清韵凌波: </a>
+                    <span class="code-comments">Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser</span>
+                </p>
+            </li>
+            <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/weixin_43669045/article/details/107093451#comments_32214486" data-report-click='{"mod":"popu_542","spm":"3001.4231","dest":"https://blog.csdn.net/weixin_43669045/article/details/107093451#comments_32214486","ab":"new"}' data-report-view='{"mod":"popu_542","spm":"3001.4231","dest":"https://blog.csdn.net/weixin_43669045/article/details/107093451#comments_32214486","ab":"new"}'>动态调用函数时的命令执行对于eval()和assert()的执行问题</a>
+                <p class="comment ellipsis">
+                    <a href="https://blog.csdn.net/m0_69776234" class="user-name" target="_blank">m0_69776234: </a>
+                    <span class="code-comments">PHP7.1以后用什么替代assert去命令执行呢？</span>
+                </p>
+            </li>
+            <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/weixin_43669045/article/details/107932942#comments_27442521" data-report-click='{"mod":"popu_542","spm":"3001.4231","dest":"https://blog.csdn.net/weixin_43669045/article/details/107932942#comments_27442521","ab":"new"}' data-report-view='{"mod":"popu_542","spm":"3001.4231","dest":"https://blog.csdn.net/weixin_43669045/article/details/107932942#comments_27442521","ab":"new"}'>xss_labs 漏洞平台靶场练习 总结 wp</a>
+                <p class="comment ellipsis">
+                    <a href="https://blog.csdn.net/m0_65935057" class="user-name" target="_blank">m0_65935057: </a>
+                    <span class="code-comments">怎么知道源码防御机制的嘞</span>
+                </p>
+            </li>
+            <li>
+                <a class="title text-truncate" target="_blank" href="https://blog.csdn.net/weixin_43669045/article/details/109517598#comments_23973079" data-report-click='{"mod":"popu_542","spm":"3001.4231","dest":"https://blog.csdn.net/weixin_43669045/article/details/109517598#comments_23973079","ab":"new"}' data-report-view='{"mod":"popu_542","spm":"3001.4231","dest":"https://blog.csdn.net/weixin_43669045/article/details/109517598#comments_23973079","ab":"new"}'>代码审计学习-BlueCMS框架代码审计</a>
+                <p class="comment ellipsis">
+                    <a href="https://blog.csdn.net/weixin_43778463" class="user-name" target="_blank">weixin_43778463: </a>
+                    <span class="code-comments">为什么点击发表留言，显示留言不能为空，我明明写了啊</span>
+                </p>
+            </li>
+        </ul>
+    </div>
+</div>
+<div id="asideArchive" class="aside-box" style="display:block!important; width:300px;">
+    <h3 class="aside-title">最新文章</h3>
+    <div class="aside-content">
+        <ul class="inf_list clearfix">
+            <li class="clearfix">
+            <a href="https://blog.csdn.net/weixin_43669045/article/details/133325430" target="_blank" data-report-click='{"mod":"popu_382","spm":"3001.4136","dest":"https://blog.csdn.net/weixin_43669045/article/details/133325430","ab":"new"}' data-report-view='{"mod":"popu_382","dest":"https://blog.csdn.net/weixin_43669045/article/details/133325430","ab":"new"}'>曲线救国-通过Magisk安装burp证书到系统根目录</a>
+            </li>
+            <li class="clearfix">
+            <a href="https://blog.csdn.net/weixin_43669045/article/details/113737090" target="_blank" data-report-click='{"mod":"popu_382","spm":"3001.4136","dest":"https://blog.csdn.net/weixin_43669045/article/details/113737090","ab":"new"}' data-report-view='{"mod":"popu_382","dest":"https://blog.csdn.net/weixin_43669045/article/details/113737090","ab":"new"}'>Vulnhub Billu_b0x靶机</a>
+            </li>
+            <li class="clearfix">
+            <a href="https://blog.csdn.net/weixin_43669045/article/details/109517598" target="_blank" data-report-click='{"mod":"popu_382","spm":"3001.4136","dest":"https://blog.csdn.net/weixin_43669045/article/details/109517598","ab":"new"}' data-report-view='{"mod":"popu_382","dest":"https://blog.csdn.net/weixin_43669045/article/details/109517598","ab":"new"}'>代码审计学习-BlueCMS框架代码审计</a>
+            </li>
+        </ul>
+        <div class="archive-bar"></div>
+        <div class="archive-box">
+                <div class="archive-list-item"><a href="https://blog.csdn.net/weixin_43669045?type=blog&amp;year=2023&amp;month=09" target="_blank" data-report-click='{"mod":"popu_538","spm":"3001.4138","ab":"new","dest":"https://blog.csdn.net/weixin_43669045?type=blog&amp;year=2023&amp;month=09"}'><span class="year">2023年</span><span class="num">1篇</span></a></div>
+                <div class="archive-list-item"><a href="https://blog.csdn.net/weixin_43669045?type=blog&amp;year=2021&amp;month=02" target="_blank" data-report-click='{"mod":"popu_538","spm":"3001.4138","ab":"new","dest":"https://blog.csdn.net/weixin_43669045?type=blog&amp;year=2021&amp;month=02"}'><span class="year">2021年</span><span class="num">1篇</span></a></div>
+                <div class="archive-list-item"><a href="https://blog.csdn.net/weixin_43669045?type=blog&amp;year=2020&amp;month=11" target="_blank" data-report-click='{"mod":"popu_538","spm":"3001.4138","ab":"new","dest":"https://blog.csdn.net/weixin_43669045?type=blog&amp;year=2020&amp;month=11"}'><span class="year">2020年</span><span class="num">30篇</span></a></div>
+        </div>
+    </div>
+</div>
+	<div id="footerRightAds" class="isShowFooterAds">
+		<div class="aside-box">
+			<div id="kp_box_57" data-pid="57"><iframe  src="https://kunpeng-sc.csdnimg.cn/?timestamp=1645783940/#/preview/2540695?positionId=57&adBlockFlag=0&adId=1068473&queryWord=Powershell无法执行脚本问题解决方案&spm=1001.2101.3001.5001&articleId=104269284" frameborder="0" width= "300px"  height= "600px" scrolling="no" ></iframe><img class="pre-img-lasy"  data-src="https://kunyu.csdn.net/1.png?p=57&adBlockFlag=0&adId=1068473&a=1068473&c=2540695&k=Powershell无法执行脚本问题解决方案&spm=1001.2101.3001.5001&articleId=104269284&d=1&t=3&u=15fe57b5444a4b13870c692212b1dc0d" style="display: block;width: 0px;height: 0px;"></div>
+		</div>
+	</div>
+    <!-- 详情页显示目录 -->
+<!--文章目录-->
+<div id="asidedirectory" class="aside-box">
+    <div class='groupfile ' id="directory">
+        <h3 class="aside-title">目录</h3>
+        <div class="align-items-stretch group_item" id="align-items-stretch">
+            <div class="pos-box">
+            <div class="scroll-box">
+                <div class="toc-box"></div>
+            </div>
+            </div>
+        </div>
+    </div>
+</div>
+</aside>
+<script>
+	$("a.flexible-btn").click(function(){
+		$(this).parents('div.aside-box').removeClass('flexible-box');
+		$(this).parents("p.text-center").remove();
+	})
+</script>
+<script type="text/javascript"  src="https://g.csdnimg.cn/user-tooltip/2.7/user-tooltip.js"></script>
+<script type="text/javascript"  src="https://g.csdnimg.cn/user-medal/2.0.0/user-medal.js"></script>        </div>
+<div class="recommend-right align-items-stretch clearfix" id="rightAside" data-type="recommend">
+    <aside class="recommend-right_aside">
+      <div class="rightside-fixed-hide">
+                       <div class="programmer1Box">
+                    <div id="kp_box_530" data-pid="530"><script defer type="text/javascript" id="interactive_js_adcode" src="https://kunpeng-render.csdnimg.cn/publisher/latest/truereachAdRender.js"></script>
+<div id="TR-780cc1b5-94d9-11ee-9cea-bf3fc95316dc"></div><img class="pre-img-lasy" data-src="https://kunyu.csdn.net/1.png?p=530&adId=1066965&adBlockFlag=0&a=1066965&c=0&k=Powershell无法执行脚本问题解决方案&spm=1001.2101.3001.4647&articleId=104269284&d=1&t=3&u=7fe830cddc594b8eab753a4cfc46489d" style="display: block;width: 0px;height: 0px;"></div>
+                </div>
+  <div class="recommend-column-box aside-box">
+    <h3 class="aside-title">相关专栏 </h3>
+    <div class="aside-content">
+        <div class="recommend-column-itembox exp2">
+          <a href="https://blog.csdn.net/weixin_43970743/category_11682453.html" title="全栈Bug调优(实战版)" target="_blank" data-report-view='{"spm":"3001.10573","dest":"https://blog.csdn.net/weixin_43970743/category_11682453.html","ab":"exp2","extra":"{\"id\":\"104269284\",\"recommendCount\":\"17\",\"index\":\"0\",\"type\":\"column\"}"}' data-report-click='{"spm":"3001.10573","dest":"https://blog.csdn.net/weixin_43970743/category_11682453.html","ab":"exp2","extra":"{\"id\":\"104269284\",\"recommendCount\":\"17\",\"index\":\"0\",\"type\":\"column\"}"}'>
+            <div class="info-box">
+              <div class="img-box">
+                <div class="column-img" style="background-image: url(https://i-blog.csdnimg.cn/direct/813542785b2d420c958cd88fcdda9607.png?x-oss-process=image/resize,m_fixed,h_224,w_224)" alt="全栈Bug调优(实战版)" srcset=""></div>
+              </div>
+              <div class="info">
+                <div class="title-box">
+                  <p class="title">全栈Bug调优(实战版)</p>
+                  <p class="tag">专栏</p>
+                </div>
+                <p class="learn">196 人学习</p>
+              </div>
+            </div>
+            <p class="desc" title="本专栏被官方评为优质专栏top1，活动秒杀价49.9，一折火热🔥订阅中(活动结束恢复原价999)。本专栏专注于搜集和归纳全网最棘手的问题，提供深入的专业性分析，并探讨创新的解决思路，目标是直击问题核心，提供切实可行的解决方案，确保每一个难题都被彻底击碎！">本专栏被官方评为优质专栏top1，活动秒杀价49.9，一折火热🔥订阅中(活动结束恢复原价999)。本专栏专注于搜集和归纳全网最棘手的问题，提供深入的专业性分析，并探讨创新的解决思路，目标是直击问题核心，提供切实可行的解决方案，确保每一个难题都被彻底击碎！</p>
+          </a>
+            <div class="rc-article-box">
+              <a href="https://blog.csdn.net/weixin_43970743/article/details/144760458" target="_blank" data-report-view='{"spm":"3001.10573","dest":"https://blog.csdn.net/weixin_43970743/article/details/144760458","ab":"exp2","extra":"{\"id\":\"104269284\",\"recommendCount\":\"17\",\"index\":\"0\",\"type\":\"article\"}"}' data-report-click='{"spm":"3001.10573","dest":"https://blog.csdn.net/weixin_43970743/article/details/144760458","ab":"exp2","extra":"{\"id\":\"104269284\",\"recommendCount\":\"17\",\"index\":\"0\",\"type\":\"article\"}"}'>
+                更新vs时遇到了<em>问题</em>：已拒绝访问 Visual Studio 安装程序，<em>无法</em><em>执行</em> <em>PowerShell</em> <em>脚本</em>，如何解决？
+              </a>
+            </div>
+        </div>
+        <div class="recommend-column-itembox exp2">
+          <a href="https://blog.csdn.net/qq_43201350/category_10526225.html" title="小技巧" target="_blank" data-report-view='{"spm":"3001.10573","dest":"https://blog.csdn.net/qq_43201350/category_10526225.html","ab":"exp2","extra":"{\"id\":\"104269284\",\"recommendCount\":\"17\",\"index\":\"1\",\"type\":\"column\"}"}' data-report-click='{"spm":"3001.10573","dest":"https://blog.csdn.net/qq_43201350/category_10526225.html","ab":"exp2","extra":"{\"id\":\"104269284\",\"recommendCount\":\"17\",\"index\":\"1\",\"type\":\"column\"}"}'>
+            <div class="info-box">
+              <div class="img-box">
+                <div class="column-img" style="background-image: url(https://i-blog.csdnimg.cn/blog_column_migrate/63c65514cd2373788af22f93c96fdbaf.png?x-oss-process=image/resize,m_fixed,h_224,w_224)" alt="小技巧" srcset=""></div>
+              </div>
+              <div class="info">
+                <div class="title-box">
+                  <p class="title">小技巧</p>
+                  <p class="tag">专栏</p>
+                </div>
+                <p class="learn">0 人学习</p>
+              </div>
+            </div>
+            <p class="desc" title="小技巧">小技巧</p>
+          </a>
+            <div class="rc-article-box">
+              <a href="https://blog.csdn.net/qq_43201350/article/details/121422964" target="_blank" data-report-view='{"spm":"3001.10573","dest":"https://blog.csdn.net/qq_43201350/article/details/121422964","ab":"exp2","extra":"{\"id\":\"104269284\",\"recommendCount\":\"17\",\"index\":\"1\",\"type\":\"article\"}"}' data-report-click='{"spm":"3001.10573","dest":"https://blog.csdn.net/qq_43201350/article/details/121422964","ab":"exp2","extra":"{\"id\":\"104269284\",\"recommendCount\":\"17\",\"index\":\"1\",\"type\":\"article\"}"}'>
+                小技巧——<em>powerShell</em>中出现禁止<em>执行</em>*<em>脚本</em>的解决方法
+              </a>
+            </div>
+        </div>
+        <div class="recommend-column-itembox exp2">
+          <a href="https://blog.csdn.net/devglider/category_12409579.html" title="编程" target="_blank" data-report-view='{"spm":"3001.10573","dest":"https://blog.csdn.net/devglider/category_12409579.html","ab":"exp2","extra":"{\"id\":\"104269284\",\"recommendCount\":\"17\",\"index\":\"2\",\"type\":\"column\"}"}' data-report-click='{"spm":"3001.10573","dest":"https://blog.csdn.net/devglider/category_12409579.html","ab":"exp2","extra":"{\"id\":\"104269284\",\"recommendCount\":\"17\",\"index\":\"2\",\"type\":\"column\"}"}'>
+            <div class="info-box">
+              <div class="img-box">
+                <div class="column-img" style="background-image: url(https://i-blog.csdnimg.cn/blog_column_migrate/b9346faac8287efffed28c8b2d898da7.png?x-oss-process=image/resize,m_fixed,h_224,w_224)" alt="编程" srcset=""></div>
+              </div>
+              <div class="info">
+                <div class="title-box">
+                  <p class="title">编程</p>
+                  <p class="tag">专栏</p>
+                </div>
+                <p class="learn">24 人学习</p>
+              </div>
+            </div>
+            <p class="desc" title="编程">编程</p>
+          </a>
+            <div class="rc-article-box">
+              <a href="https://blog.csdn.net/DevGlider/article/details/132330050" target="_blank" data-report-view='{"spm":"3001.10573","dest":"https://blog.csdn.net/DevGlider/article/details/132330050","ab":"exp2","extra":"{\"id\":\"104269284\",\"recommendCount\":\"17\",\"index\":\"2\",\"type\":\"article\"}"}' data-report-click='{"spm":"3001.10573","dest":"https://blog.csdn.net/DevGlider/article/details/132330050","ab":"exp2","extra":"{\"id\":\"104269284\",\"recommendCount\":\"17\",\"index\":\"2\",\"type\":\"article\"}"}'>
+                <em>无法</em>加载文件：禁止在此系统上运行<em>脚本</em>的<em>问题</em>解决方法
+              </a>
+            </div>
+        </div>
+    </div>
+  </div>
+      </div>
+        <div id="recommend-right" >
+          <div class='flex-column aside-box groupfile' id="groupfile">
+              <div class="groupfile-div">
+              <h3 class="aside-title">目录</h3>
+              <div class="align-items-stretch group_item">
+                  <div class="pos-box">
+                      <div class="scroll-box">
+                          <div class="toc-box"></div>
+                      </div>
+                  </div>
+              </div>
+              </div>
+          </div>
+              <div id="recommendAdBox">
+                  <div id="kp_box_479" data-pid="479"><div class="wwads-cn wwads-vertical" data-id="149" style="max-width:300px;margin-top:10px;margin-bottom:10px;background-color: #fff;"></div> 
+<style>.wwads-img img {width: 150px; margin-top:10px}</style>
+<script type="text/javascript" charset="UTF-8" src="https://cdn.wwads.cn/js/makemoney.js" async></script><img class="pre-img-lasy" data-src="https://kunyu.csdn.net/1.png?p=479&adId=1049278&adBlockFlag=0&a=1049278&c=0&k=Powershell无法执行脚本问题解决方案&spm=1001.2101.3001.4834&articleId=104269284&d=1&t=3&u=ac59d51d9a2b4f20a560e2566eb04f12" style="display: block;width: 0px;height: 0px;"></div>
+              </div>
+          <div class='aside-box kind_person d-flex flex-column'>
+                  <h3 class="aside-title">分类专栏</h3>
+                  <div class="align-items-stretch kindof_item" id="kind_person_column">
+                      <div class="aside-content">
+                          <ul>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_43669045/category_9867735.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_43669045/category_9867735.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/blog_column_migrate/c9e7664acc0954b409c406d6935c4e95.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          逻辑漏洞
+                                      </span>
+                                  </a>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_43669045/category_9737177.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_43669045/category_9737177.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/blog_column_migrate/30bd09d43aab9abf7dab0671c0491bb8.jpeg?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          Linux
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">2篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_43669045/category_10158887.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_43669045/category_10158887.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756927.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          学习安全路上的坑
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">2篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_43669045/category_10303552.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_43669045/category_10303552.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          Vulnhub靶场
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">5篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_43669045/category_9794069.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_43669045/category_9794069.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756928.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          CTF
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">10篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_43669045/category_10551266.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_43669045/category_10551266.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756918.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          代码审计
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">1篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_43669045/category_10250785.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_43669045/category_10250785.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756925.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          web漏洞靶场
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">5篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_43669045/category_9765037.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_43669045/category_9765037.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756754.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          新手入门
+                                      </span>
+                                  </a>
+                                  <span class="special-column-num">4篇</span>
+                              </li>
+                              <li>
+                                  <a class="clearfix special-column-name"  href="https://blog.csdn.net/weixin_43669045/category_9761308.html" data-report-click='{"mod":"popu_537","spm":"1001.2101.3001.4137","strategy":"pc付费专栏左侧入口","dest":"https://blog.csdn.net/weixin_43669045/category_9761308.html","ab":"new"}'>
+                                      <div class="special-column-bar "></div>
+                                      <img src="https://i-blog.csdnimg.cn/columns/default/20201014180756757.png?x-oss-process=image/resize,m_fixed,h_64,w_64" alt="" onerror="this.src='https://i-blog.csdnimg.cn/columns/default/20201014180756922.png?x-oss-process=image/resize,m_fixed,h_64,w_64'">
+                                      <span class="">
+                                          Oracle学习
+                                      </span>
+                                  </a>
+                              </li>
+                          </ul>
+                      </div>
+                  </div>
+          </div>
+        </div>
+    </aside>
+</div>
+
+<div class="recommend-right1  align-items-stretch clearfix" id="rightAsideConcision" data-type="recommend">
+    <aside class="recommend-right_aside">
+        <div id="recommend-right-concision" >
+            <div class='flex-column aside-box groupfile' id="groupfileConcision">
+                <div class="groupfile-div1">
+                <h3 class="aside-title">目录</h3>
+                <div class="align-items-stretch group_item">
+                    <div class="pos-box">
+                        <div class="scroll-box">
+                            <div class="toc-box"></div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    </aside>
+</div>
+
+      </div>
+      <div class="mask-dark"></div>
+      <div class="skin-boxshadow"></div>
+      <div class="directory-boxshadow"></div>
+<div class="comment-side-box-shadow comment-side-tit-close" id="commentSideBoxshadow">
+<div class="comment-side-content">
+	<div class="comment-side-tit">
+		<div class="comment-side-tit-count">评论&nbsp;<span class="count">3</span></div>
+	<img class="comment-side-tit-close" src="https://csdnimg.cn/release/blogv2/dist/pc/img/closeBt.png"></div>
+	<div id="pcCommentSideBox" class="comment-box comment-box-new2 " style="display:block">
+    <div class="comment-edit-box d-flex">
+      <div class="user-img">
+        <a href="https://blog.csdn.net/Huang_Feiyang" target="_blank">
+          <img src="https://profile-avatar.csdnimg.cn/default.jpg!1">
+        </a>
+      </div>
+      <form id="commentform">
+        <textarea class="comment-content" name="comment_content" id="comment_content" placeholder="欢迎高质量的评论，低质的评论会被折叠" maxlength="1000"></textarea>
+        <div class="comment-reward-box" style="background-image: url('https://img-home.csdnimg.cn/images/20230131025301.png');">
+          <a class="btn-remove-reward"></a>
+          <div class="form-reward-box">
+            <div class="info">
+              成就一亿技术人!
+            </div>
+            <div class="price-info">
+              拼手气红包<span class="price">6.0元</span>
+            </div>
+          </div>
+        </div>
+        <div class="comment-operate-box">
+          <div class="comment-operate-l">
+            <span id="tip_comment" class="tip">还能输入<em>1000</em>个字符</span>
+          </div>
+          <div class="comment-operate-c">
+            &nbsp;
+          </div>
+          <div class="comment-operate-r">
+            <div class="comment-operate-item comment-reward">
+              <img class="comment-operate-img" data-url="https://csdnimg.cn/release/blogv2/dist/pc/img/" src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentReward.png" alt="红包">
+              <span class="comment-operate-tip">添加红包</span>
+            </div>
+            <div class="comment-operate-item comment-emoticon">
+              <img class="comment-operate-img" data-url="https://csdnimg.cn/release/blogv2/dist/pc/img/" src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentEmotionIcon.png" alt="表情包">
+              <span class="comment-operate-tip">插入表情</span>
+              <div class="comment-emoticon-box comment-operate-isshow">
+                <div class="comment-emoticon-img-box"></div>
+              </div>
+            </div>
+            <div class="comment-operate-item comment-code">
+              <img class="comment-operate-img" data-url="https://csdnimg.cn/release/blogv2/dist/pc/img/" src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentCodeIcon.png" alt="表情包">
+              <span class="comment-operate-tip">代码片</span>
+              <div class="comment-code-box comment-operate-isshow">
+                <ul id="commentCode">
+                  <li><a data-code="html">HTML/XML</a></li>
+                  <li><a data-code="objc">objective-c</a></li>
+                  <li><a data-code="ruby">Ruby</a></li>
+                  <li><a data-code="php">PHP</a></li>
+                  <li><a data-code="csharp">C</a></li>
+                  <li><a data-code="cpp">C++</a></li>
+                  <li><a data-code="javascript">JavaScript</a></li>
+                  <li><a data-code="python">Python</a></li>
+                  <li><a data-code="java">Java</a></li>
+                  <li><a data-code="css">CSS</a></li>
+                  <li><a data-code="sql">SQL</a></li>
+                  <li><a data-code="plain">其它</a></li>
+                </ul>
+              </div>
+            </div>
+            <div class="comment-operate-item">
+              <input type="hidden" id="comment_replyId" name="comment_replyId">
+              <input type="hidden" id="article_id" name="article_id" value="104269284">
+              <input type="hidden" id="comment_userId" name="comment_userId" value="">
+              <input type="hidden" id="commentId" name="commentId" value="">
+              <a data-report-click='{"mod":"1582594662_003","spm":"1001.2101.3001.4227","ab":"new"}'>
+              <input type="submit" class="btn-comment btn-comment-input" value="评论">
+              </a>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+		<div class="comment-list-container">
+			<div class="comment-list-box comment-operate-item">
+			</div>
+			<div id="lookGoodComment" class="look-good-comment side-look-comment">
+				<a class="look-more-comment">查看更多评论<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentArrowDownWhite.png" alt=""></a>
+			</div>
+			<div id="lookFlodComment" class="look-flod-comment">
+					<span class="count"></span>&nbsp;条评论被折叠&nbsp;<a class="look-more-flodcomment">查看</a>
+			</div>
+			<div class="opt-box text-center">
+				<div class="btn btn-sm btn-link-blue" id="btnMoreComment"></div>
+			</div>
+		</div>
+	</div>
+	<div id="pcFlodCommentSideBox" class="pc-flodcomment-sidebox">
+		<div class="comment-fold-tit"><span id="lookUnFlodComment" class="back"><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentArrowLeftWhite.png" alt=""></span>被折叠的&nbsp;<span class="count"></span>&nbsp;条评论
+		 <a href="https://blogdev.blog.csdn.net/article/details/122245662" class="tip" target="_blank">为什么被折叠?</a>
+		 <a href="https://bbs.csdn.net/forums/FreeZone" class="park" target="_blank">
+		 <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/iconPark.png">到【灌水乐园】发言</a>                                
+		</div>
+		<div class="comment-fold-content"></div>
+		<div id="lookBadComment" class="look-bad-comment side-look-comment">
+			<a class="look-more-comment">查看更多评论<img src="https://csdnimg.cn/release/blogv2/dist/pc/img/commentArrowDownWhite.png" alt=""></a>
+		</div>
+	</div>
+</div>
+<div class="comment-rewarddialog-box">
+  <div class="form-box">
+    <div class="title-box">
+      添加红包
+      <a class="btn-form-close"></a>
+    </div>
+    <form id="commentRewardForm">
+      <div class="ipt-box">
+        <label for="txtName">祝福语</label>
+        <div class="ipt-btn-box">
+          <input type="text" name="name" id="txtName" autocomplete="off" maxlength="50">
+          <a class="btn-ipt btn-random"></a>
+        </div>
+        <p class="notice">请填写红包祝福语或标题</p>
+      </div>
+      <div class="ipt-box">
+        <label for="txtSendAmount">红包数量</label>
+        <div class="ipt-txt-box">
+          <input type="text" name="sendAmount" maxlength="4" id="txtSendAmount" placeholder="请填写红包数量(最小10个)" autocomplete="off">
+          <span class="after-txt">个</span>
+        </div>
+        <p class="notice">红包个数最小为10个</p>
+      </div>
+      <div class="ipt-box">
+        <label for="txtMoney">红包总金额</label>
+        <div class="ipt-txt-box error">
+          <input type="text" name="money" maxlength="5" id="txtMoney" placeholder="请填写总金额(最低5元)" autocomplete="off">
+          <span class="after-txt">元</span>
+        </div>
+        <p class="notice">红包金额最低5元</p>
+      </div>
+      <div class="balance-info-box">
+        <label>余额支付</label>
+        <div class="balance-info">
+          当前余额<span class="balance">3.43</span>元
+          <a href="https://i.csdn.net/#/wallet/balance/recharge" class="link-charge" target="_blank">前往充值 ></a>
+        </div>
+      </div>
+      <div class="opt-box">
+        <div class="pay-info">
+          需支付：<span class="price">10.00</span>元
+        </div>
+        <button type="button" class="ml-auto btn-cancel">取消</button>
+        <button type="button" class="ml8 btn-submit" disabled="true">确定</button>
+      </div>
+    </form>
+  </div>
+</div>
+<div class="rr-guide-box">
+  <div class="rr-first-box">
+    <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/guideRedReward02.png" alt="">
+    <button class="btn-guide-known next">下一步</button>
+  </div>
+  <div class="rr-second-box">
+    <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/guideRedReward03.png" alt="">
+    <button class="btn-guide-known known">知道了</button>
+  </div>
+</div>
+</div>
+
+<div class="redEnvolope" id="redEnvolope">
+  <div class="env-box">
+    <div class="env-container">
+      <div class="pre-open" id="preOpen">
+        <div class="top">
+          <header>
+            <img class="clearTpaErr" :src="redpacketAuthor.avatar" alt="" />
+            <div class="author">成就一亿技术人!</div>
+          </header>
+          <div class="bot-icon"></div>
+        </div>
+        <footer>
+          <div class="red-openbtn open-start"></div>
+          <div class="tip">
+            领取后你会自动成为博主和红包主的粉丝
+            <a class="rule" target="_blank">规则</a>
+          </div>
+        </footer>
+      </div>
+      <div class="opened" id="opened">
+        <div class="bot-icon">
+          <header>
+            <a class="creatorUrl" href="" target="_blank">
+              <img class="clearTpaErr" src="https://profile-avatar.csdnimg.cn/default.jpg!2" alt="" />
+            </a>
+            <div class="author">
+              <div class="tt">hope_wisdom</div> 发出的红包
+            </div>
+          </header>
+        </div>
+        <div class="receive-box">
+          <header></header>
+          <div class="receive-list">
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="close-btn"></div>
+  </div>
+</div>
+      
+      <div class="pay-code">
+      <div class="pay-money">实付<span class="pay-money-span" data-nowprice='' data-oldprice=''>元</span></div>
+      <div class="content-blance"><a class="blance-bt" href="javascript:;">使用余额支付</a></div>
+      <div class="content-code">
+        <div id="payCode" data-id="">
+          <div class="renovate">
+            <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/pay-time-out.png">
+            <span>点击重新获取</span>
+          </div>
+        </div>
+        <div class="pay-style"><span><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/weixin.png"></span><span><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/zhifubao.png"></span><span><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/jingdong.png"></span><span class="text">扫码支付</span></div>
+      </div>
+      <div class="bt-close">
+        <svg t="1567152543821" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="10924" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="12">
+          <defs>
+            <style type="text/css"></style>
+          </defs>
+          <path d="M512 438.378667L806.506667 143.893333a52.032 52.032 0 1 1 73.6 73.621334L585.621333 512l294.485334 294.485333a52.074667 52.074667 0 0 1-73.6 73.642667L512 585.621333 217.514667 880.128a52.053333 52.053333 0 1 1-73.621334-73.642667L438.378667 512 143.893333 217.514667a52.053333 52.053333 0 1 1 73.621334-73.621334L512 438.378667z" fill="" p-id="10925"></path>
+        </svg>
+      </div>
+      <div class="pay-balance">
+        <input type="radio" class="pay-code-radio" data-type="details">
+        <span class="span">钱包余额</span>
+          <span class="balance" style="color:#FC5531;font-size:14px;">0</span>
+          <div class="pay-code-tile">
+            <img src="https://csdnimg.cn/release/blogv2/dist/pc/img/pay-help.png" alt="">
+            <div class="pay-code-content">
+              <div class="span">
+                <p class="title">抵扣说明：</p>
+                <p> 1.余额是钱包充值的虚拟货币，按照1:1的比例进行支付金额的抵扣。<br> 2.余额无法直接购买下载，可以购买VIP、付费专栏及课程。</p>
+              </div>
+            </div>
+          </div>
+      </div>
+      <a class="pay-balance-con" href="https://i.csdn.net/#/wallet/balance/recharge" target="_blank"><img src="https://csdnimg.cn/release/blogv2/dist/pc/img/recharge.png" alt=""><span>余额充值</span></a>
+    </div>
+    <div style="display:none;">
+      <img src="" onerror='setTimeout(function(){if(!/(csdn.net|iteye.com|baiducontent.com|googleusercontent.com|360webcache.com|sogoucdn.com|bingj.com|baidu.com)$/.test(window.location.hostname)){window.location.href="\x68\x74\x74\x70\x73\x3a\x2f\x2f\x77\x77\x77\x2e\x63\x73\x64\x6e\x2e\x6e\x65\x74"}},3000);'>
+    </div>
+    <div class="keyword-dec-box" id="keywordDecBox"></div>
+  </body>
+  <script src="https://csdnimg.cn/release/blogv2/dist/components/js/axios-83fa28cedf.min.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/components/js/pc_wap_highlight-8defd55d6e.min.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/components/js/pc_wap_common-96cfc8f12b.min.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/components/js/edit_copy_code-81d2a4589d.min.js" type="text/javascript"></script>
+  <script src="https://g.csdnimg.cn/lib/cboxEditor/1.1.6/embed-editor.min.js" type="text/javascript"></script>
+  <link rel="stylesheet" href="https://g.csdnimg.cn/lib/cboxEditor/1.1.6/embed-editor.min.css">
+  <link rel="stylesheet" href="https://csdnimg.cn/release/blog_editor_html/release1.6.12/ckeditor/plugins/codesnippet/lib/highlight/styles/atom-one-light.css">
+  <script src="https://g.csdnimg.cn/user-accusation/1.0.6/user-accusation.js" type="text/javascript"></script>
+  <script>
+    // 全局声明
+    if (window.csdn === undefined) {
+      window.csdn = {};
+    }
+    var sideToolbarOpt = {}
+
+    $(function() {
+      $(document).on('click', "#toolReportBtnHideNormal,#toolReportBtnHide", function() {
+        window.csdn.loginBox.key({
+          biz: 'blog',
+          subBiz: 'other_service',
+          cb: function() {
+            window.csdn.feedback({
+              "type": 'blog',
+              "rtype": 'article',
+              "rid": articleId,
+              "reportedName": username,
+              "submitOptions": {
+                "title": articleTitle,
+                "contentUrl": articleDetailUrl
+              },
+              "callback": function() {
+                showToast({
+                  text: "感谢您的举报，我们会尽快审核！",
+                  bottom: '10%',
+                  zindex: 9000,
+                  speed: 500,
+                  time: 1500
+                })
+              }
+            })
+          }
+        })
+      });
+    })
+      window.csdn.sideToolbar = {
+        options: {
+          ...sideToolbarOpt,
+          theme: 'white',
+        }
+      }
+  </script>
+    <script src="https://g.csdnimg.cn/baidu-search/1.0.12/baidu-search.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/download/old_static/js/qrcode.js"></script>
+  <script src="https://g.csdnimg.cn/lib/qrcode/1.0.0/qrcode.min.js"></script>
+  <script src="https://g.csdnimg.cn/user-ordercart/3.0.1/user-ordercart.js" type="text/javascript"></script>
+  <script src="https://g.csdnimg.cn/user-ordertip/5.0.3/user-ordertip.js" type="text/javascript"></script>
+  <script src="https://g.csdnimg.cn/order-payment/4.0.5/order-payment.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/pc/js/common-d0bb853b63.min.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/pc/js/detail-eaecfc2466.min.js" type="text/javascript"></script>
+  <script src="https://csdnimg.cn/release/blogv2/dist/pc/js/column-fc546048d8.min.js" type="text/javascript"></script>
+    <script src="https://g.csdnimg.cn/side-toolbar/3.6/side-toolbar.js" type="text/javascript"></script>
+  <script src="https://g.csdnimg.cn/copyright/1.0.4/copyright.js" type="text/javascript"></script>
+  <script>
+    $(".MathJax").remove();
+    if ($('div.markdown_views pre.prettyprint code.hljs').length > 0) {
+      $('div.markdown_views')[0].className = 'markdown_views';
+    }
+  </script>
+  <script type="text/javascript" src="https://csdnimg.cn/release/blog_mathjax/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+  <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      "HTML-CSS": {
+        linebreaks: { automatic: true, width: "94%container" },
+        imageFont: null
+      },
+      tex2jax: {
+      preview: "none",
+      ignoreClass:"title-article"
+      },
+      mml2jax: {
+      preview: 'none'
+      }
+    });
+  </script>
+<script type="text/javascript" crossorigin src="https://g.csdnimg.cn/common/csdn-login-box/csdn-login-box.js"></script></html>
