@@ -2,10 +2,26 @@
 
 
 import { ref } from "vue";
+
 function add(params) {
     console.log('正在添加：'+input_val.value);
+    ls.value.push({
+      iscmp:false,
+      text:input_val.value
+    })
+// 处理输入后文字不消失
+    input_val.value = ''
 
 }
+
+function del(index){
+  ls.value.splice(index,1);
+}
+
+function change(index){
+  ls.value[index].iscmp = !ls.value[index].iscmp;
+}
+
 
 var input_val = ref('')
 var ls = ref([
@@ -14,7 +30,7 @@ var ls = ref([
     text:'我不知道1'
   },
   {
-    iscmp:true,
+    iscmp:false,
     text:'我不知道2'
   },
   {
@@ -36,11 +52,11 @@ var ls = ref([
       <div class="botton" @click="add">添加todo</div>
     </div>
     <!-- 下面是已经添加的列表 -->
-    <div v-for="i in ls"  :class="[i.iscmp ? 'lsit' : 'list2']">
+    <div v-for="(i , index) in ls"  :class="[i.iscmp ? 'lsit' : 'list2']">
       <div>
-        <input type="checkbox">
+        <input type="checkbox" @click="change(index)">
         <span class="name">{{ i.text }}</span>
-        <div class="del">删除del</div>
+        <div @click="del(index)" class="del">删除del</div>
       </div>
       
     </div>
